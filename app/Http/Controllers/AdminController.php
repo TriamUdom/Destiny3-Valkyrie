@@ -14,6 +14,6 @@ class AdminController extends Controller{
     }
 
     public static function adminLoggedIn(): bool {
-        return (session('applicant_logged_in') == 1);
+        return (session('admin_logged_in') == 1);
     }
 }
