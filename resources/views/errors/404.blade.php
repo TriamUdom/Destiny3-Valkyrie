@@ -1,4 +1,4 @@
-@extends('layouts.no_navbar')
+@extends('layouts.master')
 @section('title', '404')
 
 @section('content')
