@@ -9,7 +9,7 @@ use Session;
 
 class AdminController extends Controller{
     public function showIndexPage(){
-        return view('master');
+        return view('layouts.master');
     }
 
     public function showLoginPage(){
