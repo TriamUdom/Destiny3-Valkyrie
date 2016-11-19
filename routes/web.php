@@ -19,4 +19,6 @@ Route::group(['middleware' => 'admin'], function(){
     Route::get('/', 'AdminController@showIndexPage');
 
     Route::get('/logout', 'AdminController@logout');
+
+    Route::get('/applicants/{citizen_id}', 'DocumentsController@displayDocument');
 });
