@@ -9,6 +9,10 @@ class AdminController extends Controller{
         return view('master');
     }
 
+    public function showLoginPage(){
+        return view('login');
+    }
+
     public static function adminLoggedIn(): bool {
         return (session('applicant_logged_in') == 1);
     }
