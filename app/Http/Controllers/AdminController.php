@@ -45,4 +45,11 @@ class AdminController extends Controller{
     public static function adminLoggedIn(): bool {
         return (session('admin_logged_in') == 1);
     }
+
+    public function logout(){
+        Session::flush();
+        Session::regenerate();
+
+        return redirect('/login');
+    }
 }
