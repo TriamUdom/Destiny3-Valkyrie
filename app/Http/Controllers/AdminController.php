@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Admin as Admin;
 use Hash;
+use Session;
 
 class AdminController extends Controller{
     public function showIndexPage(){
@@ -25,9 +26,7 @@ class AdminController extends Controller{
 
         if(count($db) === 1){
             if(Hash::check($request->input('password'), $db->password)){
-                session([
-                    'admin_logged_in' => 1,
-                ]);
+                Session::put('admin_logged_in', 1);
 
                 return redirect('/');
             }else{
