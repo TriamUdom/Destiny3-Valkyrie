@@ -167,6 +167,7 @@ return [
          * Package Service Providers...
          */
         Jenssegers\Rollbar\RollbarServiceProvider::class,
+        Jenssegers\Mongodb\MongodbServiceProvider::class,
 
         //
 
