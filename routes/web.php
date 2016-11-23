@@ -16,9 +16,9 @@ Route::post('/login', 'AdminController@login');
 
 // Authorization required beyond this point
 Route::group(['middleware' => 'admin'], function(){
-    Route::get('/', 'AdminController@showIndexPage');
+    Route::get('/', 'UserController@showIndexPage');
 
     Route::get('/logout', 'AdminController@logout');
 
-    Route::get('/applicants/{citizen_id}', 'DocumentsController@displayDocument');
+    Route::get('/applicants/{object_id}', 'UserController@displayDocument');
 });
