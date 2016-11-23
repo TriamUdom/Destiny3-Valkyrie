@@ -14,20 +14,20 @@
             </div>
         </div>
     @else
-        @for($i=0;$i<3;$i++)
-            <div class="well">
-                <div class="row">
-                    <div class="col-md-12">
-                        นาย... ... {{ $i }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <a href="/applicants/123456"><button class="btn btn-block btn-info">ตรวจสอบ</button></a>
-                    </div>
+        @foreach($data as $row)
+        <div class="well">
+            <div class="row">
+                <div class="col-md-12">
+                    {{ App\UIHelper::formatTitle($row['title']) }} {{ $row['fname'] }} {{ $row['lname'] }}
                 </div>
             </div>
-        @endfor
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="/applicants/{{ $row['_id'] }}"><button class="btn btn-block btn-info">ตรวจสอบ</button></a>
+                </div>
+            </div>
+        </div>
+        @endforeach
     @endif
 
 @endsection
