@@ -14,7 +14,7 @@ class CreateApplicantsCollection extends Migration
     public function up()
     {
         Schema::create('applicants', function ($collection) {
-            $collection->unique('_id');
+            
         });
     }
 
