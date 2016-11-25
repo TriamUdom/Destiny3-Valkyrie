@@ -46,8 +46,8 @@ class Requirement{
         ],
     ];
 
-    public static function verifyGrade($plan, $input_grade, $total_grade){
-        if(!isset($this->requried_grade[$plan]){
+    public static function verifyGrade($plan_id, $input_grade, $total_grade){
+        if(!isset($this->requried_grade[$plan_id])){
             throw new Exception('Plan not in array');
         }
 
@@ -88,105 +88,105 @@ class Requirement{
             }
         }
 
-        switch($plan){
+        switch($plan_id){
             case '1':
-                if(self::averageGrade($soc[1]) >= $this->requried_grade[$plan]['soc_1']){
+                if(self::averageGrade($soc[1]) >= $this->requried_grade[$plan_id]['soc_1']){
                     return false;
                 }
-                if(self::averageGrade($tha[1]) >= $this->requried_grade[$plan]['tha_1']){
+                if(self::averageGrade($tha[1]) >= $this->requried_grade[$plan_id]['tha_1']){
                     return false;
                 }
-                if(self::averageGrade($eng[1]) >= $this->requried_grade[$plan]['eng_1']){
+                if(self::averageGrade($eng[1]) >= $this->requried_grade[$plan_id]['eng_1']){
                     return false;
                 }
-                if(self::averageGrade($eng[2]) >= $this->requried_grade[$plan]['eng_2']){
+                if(self::averageGrade($eng[2]) >= $this->requried_grade[$plan_id]['eng_2']){
                     return false;
                 }
 
-                if($total_grade >= $this->required_grade[$plan]['total_grade']){
+                if($total_grade >= $this->required_grade[$plan_id]['total_grade']){
                     return false;
                 }
 
                 return true;
             break;
             case '2':
-                if(self::averageGrade($soc[1]) >= $this->requried_grade[$plan]['soc_1']){
+                if(self::averageGrade($soc[1]) >= $this->requried_grade[$plan_id]['soc_1']){
                     return false;
                 }
-                if(self::averageGrade($tha[1]) >= $this->requried_grade[$plan]['tha_1']){
+                if(self::averageGrade($tha[1]) >= $this->requried_grade[$plan_id]['tha_1']){
                     return false;
                 }
-                if(self::averageGrade($eng[1]) >= $this->requried_grade[$plan]['eng_1']){
+                if(self::averageGrade($eng[1]) >= $this->requried_grade[$plan_id]['eng_1']){
                     return false;
                 }
-                if(self::averageGrade($eng[2]) >= $this->requried_grade[$plan]['eng_2']){
+                if(self::averageGrade($eng[2]) >= $this->requried_grade[$plan_id]['eng_2']){
                     return false;
                 }
 
-                if($total_grade >= $this->required_grade[$plan]['total_grade']){
+                if($total_grade >= $this->required_grade[$plan_id]['total_grade']){
                     return false;
                 }
 
                 return true;
             break;
             case '3':
-                if(self::averageGrade($tha[1]) >= $this->requried_grade[$plan]['tha_1']){
+                if(self::averageGrade($tha[1]) >= $this->requried_grade[$plan_id]['tha_1']){
                     return false;
                 }
-                if(self::averageGrade($eng[1]) >= $this->requried_grade[$plan]['eng_1']){
+                if(self::averageGrade($eng[1]) >= $this->requried_grade[$plan_id]['eng_1']){
                     return false;
                 }
-                if(self::averageGrade($eng[2]) >= $this->requried_grade[$plan]['eng_2']){
+                if(self::averageGrade($eng[2]) >= $this->requried_grade[$plan_id]['eng_2']){
                     return false;
                 }
-                if(self::averageGrade($soc[1]) >= $this->requried_grade[$plan]['soc_1']){
+                if(self::averageGrade($soc[1]) >= $this->requried_grade[$plan_id]['soc_1']){
                     return false;
                 }
 
-                if($total_grade >= $this->required_grade[$plan]['total_grade']){
+                if($total_grade >= $this->required_grade[$plan_id]['total_grade']){
                     return false;
                 }
 
                 return true;
             break;
             case '4':
-                if(self::averageGrade($tha[1]) >= $this->requried_grade[$plan]['tha_1']){
+                if(self::averageGrade($tha[1]) >= $this->requried_grade[$plan_id]['tha_1']){
                     return false;
                 }
-                if(self::averageGrade($mat[1]) >= $this->requried_grade[$plan]['mat_1']){
+                if(self::averageGrade($mat[1]) >= $this->requried_grade[$plan_id]['mat_1']){
                     return false;
                 }
-                if(self::averageGrade($mat[2]) >= $this->requried_grade[$plan]['mat_2']){
+                if(self::averageGrade($mat[2]) >= $this->requried_grade[$plan_id]['mat_2']){
                     return false;
                 }
-                if(self::averageGrade($eng[1]) >= $this->requried_grade[$plan]['eng_1']){
+                if(self::averageGrade($eng[1]) >= $this->requried_grade[$plan_id]['eng_1']){
                     return false;
                 }
-                if(self::averageGrade($eng[2]) >= $this->requried_grade[$plan]['eng_2']){
+                if(self::averageGrade($eng[2]) >= $this->requried_grade[$plan_id]['eng_2']){
                     return false;
                 }
 
-                if($total_grade >= $this->required_grade[$plan]['total_grade']){
+                if($total_grade >= $this->required_grade[$plan_id]['total_grade']){
                     return false;
                 }
 
                 return true;
             break;
             case '5':
-                if(self::averageGrade($mat[1]) >= $this->requried_grade[$plan]['mat_1']){
+                if(self::averageGrade($mat[1]) >= $this->requried_grade[$plan_id]['mat_1']){
                     return false;
                 }
-                if(self::averageGrade($mat[2]) >= $this->requried_grade[$plan]['mat_2']){
+                if(self::averageGrade($mat[2]) >= $this->requried_grade[$plan_id]['mat_2']){
                     return false;
                 }
-                if(self::averageGrade($sci[1]) >= $this->requried_grade[$plan]['sci_1']){
+                if(self::averageGrade($sci[1]) >= $this->requried_grade[$plan_id]['sci_1']){
                     return false;
                 }
-                if(self::averageGrade($sci[2]) >= $this->requried_grade[$plan]['sci_2']){
+                if(self::averageGrade($sci[2]) >= $this->requried_grade[$plan_id]['sci_2']){
                     return false;
                 }
 
-                if($total_grade >= $this->required_grade[$plan]['total_grade']){
+                if($total_grade >= $this->required_grade[$plan_id]['total_grade']){
                     return false;
                 }
 
