@@ -59,7 +59,7 @@ class UserController extends Controller{
     }
 
     public function displayDocument(Request $request, $object_id){
-        $data = Applicant::where('_id', $object_id)->first()[0];
+        $data = Applicant::where('_id', $object_id)->first();
         return view('user')->with('data', $data);
     }
 }
