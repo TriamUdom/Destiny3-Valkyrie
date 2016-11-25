@@ -9,40 +9,40 @@ class Requirement{
 
     protected static $required_grade = [
         '5' => [ // Sci - Math
-            'sci_1' => '3.9', // Basic
-            'sci_2' => '3.9', // Advance
-            'mat_1' => '3.9', // Basic
-            'mat_2' => '3.9', // Advance
-            'total' => '3.8',
+            'sci_1' => 3.9, // Basic
+            'sci_2' => 3.9, // Advance
+            'mat_1' => 3.9, // Basic
+            'mat_2' => 3.9, // Advance
+            'total' => 3.8,
         ],
         '4' => [ // Eng - Math
-            'tha_1' => '3.9', // Basic
-            'mat_1' => '3.9', // Basic
-            'mat_2' => '3.9', // Advance
-            'eng_1' => '3.9', // Basic
-            'eng_2' => '3.9', // Advance
-            'total' => '3.8',
+            'tha_1' => 3.9, // Basic
+            'mat_1' => 3.9, // Basic
+            'mat_2' => 3.9, // Advance
+            'eng_1' => 3.9, // Basic
+            'eng_2' => 3.9, // Advance
+            'total' => 3.8,
         ],
         '1' => [ // Eng - French
-            'tha_1' => '3.9', // Basic
-            'eng_1' => '3.9', // Basic
-            'eng_2' => '3.9', // Advance
-            'soc_1' => '3.9', // Basic
-            'total' => '3.8',
+            'tha_1' => 3.9, // Basic
+            'eng_1' => 3.9, // Basic
+            'eng_2' => 3.9, // Advance
+            'soc_1' => 3.9, // Basic
+            'total' => 3.8,
         ],
         '2' => [ // Eng - German
-            'tha_1' => '3.9', // Basic
-            'eng_1' => '3.9', // Basic
-            'eng_2' => '3.9', // Advance
-            'soc_1' => '3.9', // Basic
-            'total' => '3.8',
+            'tha_1' => 3.9, // Basic
+            'eng_1' => 3.9, // Basic
+            'eng_2' => 3.9, // Advance
+            'soc_1' => 3.9, // Basic
+            'total' => 3.8,
         ],
         '3' => [ // Eng - Japan
-            'tha_1' => '3.9', // Basic
-            'eng_1' => '3.9', // Basic
-            'eng_2' => '3.9', // Advance
-            'soc_1' => '3.9', // Basic
-            'total' => '3.8',
+            'tha_1' => 3.9, // Basic
+            'eng_1' => 3.9, // Basic
+            'eng_2' => 3.9, // Advance
+            'soc_1' => 3.9, // Basic
+            'total' => 3.8,
         ],
     ];
 
