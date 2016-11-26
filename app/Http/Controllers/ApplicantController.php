@@ -7,6 +7,7 @@ use App\Applicant;
 use RESTResponse;
 use DB;
 use Log;
+use Exception;
 
 class ApplicantController extends Controller{
     public function handleIncomingRequest(Request $request, $citizen_id){
@@ -61,5 +62,29 @@ class ApplicantController extends Controller{
     public function displayDocument(Request $request, $object_id){
         $data = Applicant::where('_id', $object_id)->first();
         return view('user')->with('data', $data);
+    }
+
+    public function updateDocumentStatus(Requets $requets, $object_id, $document){
+        $accepted_document = ['image', 'citizen_card', 'transcript', 'student_hr', 'father_hr', 'mother_hr'];
+        if(!in_array($document, $accepted_document)){
+            abort(400);
+        }
+
+        $accepted_action = ['accepted' => 1, 'denial' => -1];
+        if(!in_array($request->input('action'), $accepted_action)){
+            abort(400);
+        }
+
+        $update = Applicant::where('_id', $object_id)->update([
+            'documents.'.$document => $accepted_action[$request->input('action')],
+        ]);
+
+        if($update === 1){
+            return RESTResponse::ok();
+        }else if($update === 0){
+            return RESTResponse::notFound();
+        }else{
+            throw new Exception('More than one row was effected');
+        }
     }
 }
