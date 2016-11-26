@@ -8,7 +8,7 @@ use RESTResponse;
 use DB;
 use Log;
 
-class UserController extends Controller{
+class ApplicantController extends Controller{
     public function handleIncomingRequest(Request $request, $citizen_id){
         /*$this->validate($request, [
             'fname' => 'required',

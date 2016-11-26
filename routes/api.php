@@ -14,5 +14,5 @@ use Illuminate\Http\Request;
 */
 
 Route::group(['prefix' => 'v1'], function(){
-    Route::post('/applicants/{citizen_id}', 'UserController@handleIncomingRequest');
+    Route::post('/applicants/{citizen_id}', 'ApplicantController@handleIncomingRequest');
 });
