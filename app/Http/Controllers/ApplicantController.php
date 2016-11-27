@@ -47,6 +47,12 @@ class ApplicantController extends Controller{
             'documents' => array(
                 'timestamp' => $request->input('documents.timestamp'),
                 'access_token' => $request->input('documents.access_token'),
+                'image' => 0,
+                'citizen_card' => 0,
+                'transcript' => 0,
+                'student_hr' => 0,
+                'father_hr' => 0,
+                'mother_hr' => 0,
             ),
             'check_status' => 0,
         ]);
