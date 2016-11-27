@@ -213,4 +213,14 @@ class Requirement{
     public static function averageGrade(Array $grade){
         return (array_sum($grade)/count($grade));
     }
+
+    public function checkAllDocumentsAccepted($object_id){
+        $data = Applicant::where('_id', $object_id)->pluck('documents')[0];
+        if( $data['image'] === 1 && $data['citizen_card'] === 1 && $data['transcript'] === 1 ||
+            $data['student_hr'] === 1 && $data['father_hr'] === 1 && $data['mother_hr'] === 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
