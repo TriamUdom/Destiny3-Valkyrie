@@ -36,6 +36,7 @@ class Applicant extends Model
         'quota_grade',
         'documents',
         'check_status',
+        'submitted',
     ];
 
     public $timestamps = false;

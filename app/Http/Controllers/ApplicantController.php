@@ -55,6 +55,7 @@ class ApplicantController extends Controller{
                 'mother_hr' => 0,
             ),
             'check_status' => 0,
+            'submitted' => time(),
         ]);
 
         return RESTResponse::ok();
