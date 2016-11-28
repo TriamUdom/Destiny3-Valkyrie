@@ -21,4 +21,5 @@ Route::group(['middleware' => 'admin'], function(){
     Route::get('/logout', 'AdminController@logout');
 
     Route::get('/applicants/{object_id}', 'ApplicantController@displayDocument');
+    Route::post('/applicants/{object_id}/{document}', 'ApplicantController@updateDocumentStatus');
 });
