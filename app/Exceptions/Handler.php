@@ -33,6 +33,9 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
+        if($e instanceof TokenMismatchException){
+            return redirect('/login');
+        }
         Log::error($exception);
         parent::report($exception);
     }
