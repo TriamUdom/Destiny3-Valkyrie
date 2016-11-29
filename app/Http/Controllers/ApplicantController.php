@@ -8,6 +8,7 @@ use RESTResponse;
 use DB;
 use Log;
 use Exception;
+use Config;
 
 class ApplicantController extends Controller{
     public function handleIncomingRequest(Request $request, $citizen_id){
@@ -58,7 +59,18 @@ class ApplicantController extends Controller{
             'submitted' => time(),
         ]);
 
-        return RESTResponse::ok();
+        $all = Applicant::where('citizen_id', $citizen_id)
+                        ->where('check_status', 0)
+                        ->orderBy('submitted', 'desc')
+                        ->get();
+
+        if(count($all) !== 1){
+            throw new Exception('More than one pending row');
+        }else{
+            $id = $all[0]['_id'];
+        }
+
+        return RESTResponse::ok($id);
     }
 
     public function showIndexPage(){
@@ -71,7 +83,7 @@ class ApplicantController extends Controller{
         return view('user')->with('data', $data);
     }
 
-    public function updateDocumentStatus(Requets $requets, $object_id, $document){
+    public function updateDocumentStatus(Request $request, $object_id, $document){
         $accepted_document = ['image', 'citizen_card', 'transcript', 'student_hr', 'father_hr', 'mother_hr'];
         if(!in_array($document, $accepted_document)){
             abort(400);
@@ -92,6 +104,75 @@ class ApplicantController extends Controller{
             return RESTResponse::notFound();
         }else{
             throw new Exception('More than one row was effected');
+        }
+    }
+
+    public function updateAcceptanceStatus(Request $request, $object_id){
+        if(!in_array($request->input('status'), [1, -1])){
+            abort(400);
+        }
+
+        $all_docs = Applicant::where('_id', $object_id)->pluck('documents')[0];
+
+        if($all_docs['image'] == 0 || $all_docs['citizen_card'] == 0 ||
+            $all_docs['transcript'] == 0 || $all_docs['student_hr'] == 0 ||
+            $all_docs['father_hr'] == 0 || $all_docs['mother_hr'] == 0){
+
+            return RESTResponse::badRequest('Not all document have been inspected');
+        }
+
+        if($all_docs['image'] == 1 && $all_docs['citizen_card'] == 1 &&
+            $all_docs['transcript'] == 1 && $all_docs['student_hr'] == 1 &&
+            $all_docs['father_hr'] == 1 && $all_docs['mother_hr'] == 1){
+
+            $status = 1;
+        }else{
+            $status = -1;
+        }
+
+        Applicant::where('_id', $object_id)->update([
+            'check_status' => $status
+        ]);
+
+        if($this->notifyUI($status, $object_id)){
+            return redirect('/')->with('message', 'UI notified');
+        }else{
+            return RESTResponse::serverError('Cannot send data to UI');
+        }
+    }
+
+    private function notifyUI($status, $object_id){
+        $db = Applicant::where('_id', $object_id)->first();
+
+        $base_path = Config::get('api.base_path');
+        $sendto = "$base_path/api/v1/applicant/".$db['citizen_id']."/status";
+
+        // Init cURL and set stuff:
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $sendto);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+
+        // VERY VERY IMPORTANT: the API key header.
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            "api-key: 1234" // TODO : insert real api key
+        ));
+
+        $payload = [
+            'status' => $status,
+            'object_id' => $object_id,
+        ];
+
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($payload)); // POST data field(s)
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        // run the cURL query
+        $result = curl_exec($ch);
+        $returnHttpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+        if($returnHttpCode == 200){
+            return true;
+        }else{
+            return false;
         }
     }
 }
