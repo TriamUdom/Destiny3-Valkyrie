@@ -33,7 +33,7 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
-        if($e instanceof TokenMismatchException){
+        if($exception instanceof TokenMismatchException){
             return redirect('/login');
         }
         Log::error($exception);
