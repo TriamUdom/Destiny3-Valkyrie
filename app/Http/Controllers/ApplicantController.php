@@ -109,30 +109,22 @@ class ApplicantController extends Controller{
 
         $all_docs = Applicant::where('_id', $object_id)->pluck('evaluation.'.Session::get('admin_id'))[0];
 
-        if($all_docs['image'] == 0 || $all_docs['citizen_card'] == 0 ||
-            $all_docs['transcript'] == 0 || $all_docs['student_hr'] == 0 ||
-            $all_docs['father_hr'] == 0 || $all_docs['mother_hr'] == 0){
+        if($all_docs['image']['status'] == 0 || $all_docs['citizen_card']['status'] == 0 ||
+            $all_docs['transcript']['status'] == 0 || $all_docs['student_hr']['status'] == 0 ||
+            $all_docs['father_hr']['status'] == 0 || $all_docs['mother_hr']['status'] == 0){
 
             return RESTResponse::badRequest('Not all document have been inspected');
         }
 
-        if($all_docs['image'] == 1 && $all_docs['citizen_card'] == 1 &&
-            $all_docs['transcript'] == 1 && $all_docs['student_hr'] == 1 &&
-            $all_docs['father_hr'] == 1 && $all_docs['mother_hr'] == 1){
+        if($all_docs['image']['status'] == -1 || $all_docs['citizen_card']['status'] == -1 ||
+            $all_docs['transcript']['status'] == -1 || $all_docs['student_hr']['status'] == -1 ||
+            $all_docs['father_hr']['status'] == -1 || $all_docs['mother_hr']['status'] == -1){
 
-            $status = 1;
-        }else{
-            $status = -1;
-        }
-
-        Applicant::where('_id', $object_id)->update([
-            'check_status' => $status
-        ]);
-
-        if($this->notifyUI($status, $object_id)){
-            return redirect('/')->with('message', 'UI notified');
-        }else{
-            return RESTResponse::serverError('Cannot send data to UI');
+            if($this->notifyUI($status, $object_id)){
+                return redirect('/')->with('message', 'UI notified');
+            }else{
+                return RESTResponse::serverError('Cannot send data to UI');
+            }
         }
     }
 
