@@ -63,6 +63,7 @@ class AdminController extends Controller{
             if(Hash::check($request->input('password'), $db->password)){
                 Session::put('admin_logged_in', 1);
                 Session::put('admin_name', $db->name);
+                Session::put('admin_id', $db->_id);
 
                 return redirect('/');
             }else{
