@@ -89,8 +89,8 @@ class ApplicantController extends Controller{
         }
 
         $update = Applicant::where('_id', $object_id)->update([
-            'evaluation.'.Session::get('admin_id').'.'.$document.'.status' => $request->input('action'),
-            'evaluation.'.Session::get('admin_id').'.'.$document.'.comment' => $request->input('comment'),
+            'evaluation.'.Session::get('admin_id').'.'.$document.'.status' => $accepted_action[$request->input('action')],
+            'evaluation.'.Session::get('admin_id').'.'.$document.'.comment' => $accepted_action[$request->input('comment')],
         ]);
 
         if($update === 1){
