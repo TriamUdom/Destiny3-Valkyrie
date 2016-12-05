@@ -77,7 +77,7 @@ class ApplicantController extends Controller{
     }
 
     public function updateDocumentStatus(Request $request, $object_id, $document){
-        $accepted_document = ['image', 'citizen_card', 'transcript', 'student_hr', 'father_hr', 'mother_hr'];
+        $accepted_document = ['image', 'citizen_card', 'transcript', 'student_hr', 'gradecert'];
         if(!in_array($document, $accepted_document)){
             abort(400);
         }
