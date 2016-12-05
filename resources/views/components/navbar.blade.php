@@ -18,7 +18,7 @@
       @if(Session::has('admin_logged_in'))
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user text-muted"></i> {{ Session::get('admin_name') }}, {{ Session::get('supervisor_name') }}<span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><small class="text-muted">USER</small> {{ Session::get('admin_name') }}, <small class="text-muted">SUPERVISOR</small> {{ Session::get('supervisor_name') }}<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="/logout"><i class="fa fa-sign-out"></i> ออกจากระบบ</a></li>
           </ul>
