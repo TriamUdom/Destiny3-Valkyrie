@@ -20,8 +20,6 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user text-muted"></i> {{ Session::get('admin_name') }}<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="/change_password"><i class="fa fa-key"></i> เปลี่ยนรหัสผ่าน</a></li>
-            <li role="separator" class="divider"></li>
             <li><a href="/logout"><i class="fa fa-sign-out"></i> ออกจากระบบ</a></li>
           </ul>
         </li>
