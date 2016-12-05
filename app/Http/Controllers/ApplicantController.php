@@ -154,6 +154,10 @@ class ApplicantController extends Controller{
             }
         }
 
+        if(empty($comments)){
+            throw new Exception('No comment found');
+        }
+
         $payload = [
             'object_id' => $object_id,
             'comments' => $comments,
