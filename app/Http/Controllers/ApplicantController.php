@@ -144,9 +144,20 @@ class ApplicantController extends Controller{
             "api-key: 1234" // TODO : insert real api key
         ));
 
+        $comments = [];
+
+        foreach($db['evaluation'] as $admin_id){
+            foreach($admin_id as $document){
+                if($document['status'] == -1 && !empty($document['comment'])){
+                    $comments[] = $document['comment'];
+                }
+            }
+        }
+
         $payload = [
-            'status' => $status,
             'object_id' => $object_id,
+            'comments' => $comments,
+            'status' => -1,
         ];
 
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($payload)); // POST data field(s)
