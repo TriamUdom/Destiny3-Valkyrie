@@ -107,7 +107,7 @@ class ApplicantController extends Controller{
             abort(400);
         }
 
-        $all_docs = Applicant::where('_id', $object_id)->pluck('documents')[0];
+        $all_docs = Applicant::where('_id', $object_id)->pluck('evaluation.'.Session::get('admin_id'))[0];
 
         if($all_docs['image'] == 0 || $all_docs['citizen_card'] == 0 ||
             $all_docs['transcript'] == 0 || $all_docs['student_hr'] == 0 ||
