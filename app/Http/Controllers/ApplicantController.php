@@ -9,6 +9,7 @@ use DB;
 use Log;
 use Exception;
 use Config;
+use Session;
 
 class ApplicantController extends Controller{
     public function handleIncomingRequest(Request $request, $citizen_id){
@@ -88,7 +89,8 @@ class ApplicantController extends Controller{
         }
 
         $update = Applicant::where('_id', $object_id)->update([
-            'documents.'.$document => $accepted_action[$request->input('action')],
+            'evaluation.'.Session::get('admin_id').'.'.$document.'.status' => $request->input('action'),
+            'evaluation.'.Session::get('admin_id').'.'.$document.'.comment' => $request->input('comment'),
         ]);
 
         if($update === 1){
