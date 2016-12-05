@@ -11,11 +11,16 @@
 |
 */
 
-Route::get('/login', 'AdminController@showLoginPage');
-Route::post('/login', 'AdminController@login');
+Route::get('/supervisor_login', 'AdminController@showSupervisorLoginPage');
+Route::post('/supervisor_login', 'AdminController@supervisorLogin');
+
+Route::group(['middleware' => 'supervised'], function(){
+    Route::get('/login', 'AdminController@showLoginPage');
+    Route::post('/login', 'AdminController@login');
+});
 
 // Authorization required beyond this point
-Route::group(['middleware' => 'admin'], function(){
+Route::group(['middleware' => ['admin', 'supervised']], function(){
     Route::get('/', 'ApplicantController@showIndexPage');
 
     Route::get('/logout', 'AdminController@logout');
