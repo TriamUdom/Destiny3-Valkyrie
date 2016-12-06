@@ -175,6 +175,10 @@ class ApplicantController extends Controller{
         $returnHttpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
         if($returnHttpCode == 200){
+            Applicant::where('_id', $object_id)->update([
+                'ui_notified' => 1,
+            ]);
+
             return true;
         }else{
             return false;
