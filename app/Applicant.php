@@ -24,10 +24,10 @@ class Applicant extends Model
         'mother',
         'guardian',
         'school',
-        'graduation_year',
-        'gpa',
-        'school_move_in',
         'school_province',
+        'school2',
+        'school2_province',
+        'gpa',
         'address',
         'application_type',
         'quota_type',
@@ -37,6 +37,7 @@ class Applicant extends Model
         'documents',
         'check_status',
         'submitted',
+        'ui_notified',
     ];
 
     public $timestamps = false;
