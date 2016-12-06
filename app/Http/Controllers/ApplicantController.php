@@ -184,4 +184,67 @@ class ApplicantController extends Controller{
             return false;
         }
     }
+
+    public static function notifyUIOnsuccess($id){
+        $citizen_id = Applicant::where('_id', $id)->value('citizen_id');
+
+        $sendto = Config::get('api.base_path').'/api/v1/applicant/'.$citizen_id.'/status';
+
+        // Init cURL and set stuff:
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $sendto);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+
+        // VERY VERY IMPORTANT: the API key header.
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            "api-key: 1234" // TODO : insert real api key
+        ));
+
+        $payload = [
+            'object_id' => $object_id,
+            'status' => 1,
+        ];
+
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($payload)); // POST data field(s)
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        // run the cURL query
+        $result = curl_exec($ch);
+        $returnHttpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+        return $returnHttpCode;
+    }
+
+    public static function getPassedApplicantID(){
+        $all = Applicant::where('ui_notified', 0)->get();
+
+        if(count($all) == 0){
+            return 'Nothing to report (Row count equal to 0)';
+        }
+
+        $passed_id = [];
+
+        foreach($all as $object_id => $applicant){
+            if(!isset($applicant['evaluation'])){
+                continue;
+            }
+
+            foreach($applicant->evaluation as $eval_admin){
+                foreach($eval_admin as $document){
+                    if($document['status'] == 0 || $document['status'] == -1){
+                        break 2;
+                    }
+                }
+            }
+
+            $passed_id[] = $object_id;
+        }
+
+        if(empty($passed_id)){
+            return 'Nothing to report (No one pass)';
+        }
+
+        return $passed_id;
+    }
+
 }
