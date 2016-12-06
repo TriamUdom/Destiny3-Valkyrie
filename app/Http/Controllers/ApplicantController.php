@@ -19,6 +19,15 @@ class ApplicantController extends Controller{
             ''
         ]);*/
 
+        $count = Applicant::where('citizen_id', $citizen_id)
+                        ->where('ui_notified', 0)
+                        ->orderBy('submitted', 'desc')
+                        ->count();
+
+        if($count !== 0){
+            throw new Exception('Pending document exists');
+        }
+
         Applicant::create([
             'citizen_id' => $citizen_id,
             'title' => $request->input('title'),
@@ -51,24 +60,18 @@ class ApplicantController extends Controller{
                 'access_token' => $request->input('documents.access_token'),
             ),
             'submitted' => time(),
+            'ui_notified' => 0,
         ]);
 
-        $all = Applicant::where('citizen_id', $citizen_id)
-                        ->where('check_status', 0)
-                        ->orderBy('submitted', 'desc')
-                        ->get();
-
-        if(count($all) !== 1){
-            throw new Exception('More than one pending row');
-        }else{
-            $id = $all[0]['_id'];
-        }
+        $id = Applicant::where('citizen_id', $citizen_id)
+                        ->where('ui_notified', 0)
+                        ->pluck('_id')[0];
 
         return RESTResponse::ok($id);
     }
 
     public function showIndexPage(){
-        $db = Applicant::where('check_status', 0)->get();
+        $db = Applicant::where('ui_notified', 0)->get();
         return view('index')->with('data', $db);
     }
 
