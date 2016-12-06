@@ -114,14 +114,14 @@ class ApplicantController extends Controller{
 
         if($all_docs['image']['status'] == 0 || $all_docs['citizen_card']['status'] == 0 ||
             $all_docs['transcript']['status'] == 0 || $all_docs['student_hr']['status'] == 0 ||
-            $all_docs['father_hr']['status'] == 0 || $all_docs['mother_hr']['status'] == 0){
+            $all_docs['gradecert']['status'] == 0){
 
             return RESTResponse::badRequest('Not all document have been inspected');
         }
 
         if($all_docs['image']['status'] == -1 || $all_docs['citizen_card']['status'] == -1 ||
             $all_docs['transcript']['status'] == -1 || $all_docs['student_hr']['status'] == -1 ||
-            $all_docs['father_hr']['status'] == -1 || $all_docs['mother_hr']['status'] == -1){
+            $all_docs['gradecert']['status'] == -1){
 
             if($this->notifyUIOnFailure($status, $object_id)){
                 return redirect('/')->with('message', 'UI notified');
