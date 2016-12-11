@@ -35,10 +35,7 @@
                         <button id="btnStudentHR" class="btn btn-sm btn-block btn-primary">ทะเบียนบ้านนักเรียน</button>
                     </div>
                     <div class="col-xs-4">
-                        <button id="btnFatherHR" class="btn btn-sm btn-block btn-primary">ทะเบียนบ้านบิดา</button>
-                    </div>
-                    <div class="col-xs-4">
-                        <button id="btnMotherHR" class="btn btn-sm btn-block btn-primary">ทะเบียนบ้านมารดา</button>
+                        <button id="btnGradeVerification" class="btn btn-sm btn-block btn-primary">ใบรับรองผลการเรียน</button>
                     </div>
                 </div>
                 <div style="height:10px;">&nbsp;</div>
@@ -92,4 +89,31 @@
             {{ csrf_field() }}
         </form>
     @endif
+@endsection
+
+@section('additional_scripts')
+    <script>
+        var currentDoc = "photo";
+
+        $("#btnGenInfo").click(function(e){
+            showDocument("photo");
+        });
+        $("#btnCID").click(function(e){
+            showDocument("cid");
+        });
+        $("#btnTranscript").click(function(e){
+            showDocument("transcript");
+        });
+        $("#btnStudentHR").click(function(e){
+            showDocument("student_hr");
+        });
+        $("#btnGradeVerification").click(function(e){
+            showDocument("grade_verification");
+        });
+
+        function showDocument(document_name){
+            $(".document").hide();
+            $("#document_" + document_name).show();
+        }
+    </script>
 @endsection
