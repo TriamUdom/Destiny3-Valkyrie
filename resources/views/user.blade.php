@@ -61,13 +61,24 @@
             <div class="col-xs-6">
                 <div class="documentContainer" align="center">
                     <div class="document" id="document_photo">
+                        <small class="text-muted">รูปถ่ายนักเรียน</small>
                         <img src="{{ App\Http\Controllers\ApplicantController::renderDocument($data['_id'], 'image') }}" class="img-responsive">
                     </div>
                     <div class="document" id="document_cid" style="display:none;">
+                        <small class="text-muted">บัตรประจำตัวประชาชน</small>
                         <img src="{{ App\Http\Controllers\ApplicantController::renderDocument($data['_id'], 'citizen_card') }}" class="img-responsive">
                     </div>
                     <div class="document" id="document_transcript" style="display:none;">
+                        <small class="text-muted">ใบแสดงผลการเรียน</small>
                         <img src="{{ App\Http\Controllers\ApplicantController::renderDocument($data['_id'], 'transcript') }}" class="img-responsive">
+                    </div>
+                    <div class="document" id="document_student_hr" style="display:none;">
+                        <small class="text-muted">ทะเบียนบ้านนักเรียน</small>
+                        <img src="{{ App\Http\Controllers\ApplicantController::renderDocument($data['_id'], 'student_hr') }}" class="img-responsive">
+                    </div>
+                    <div class="document" id="document_grade_verification" style="display:none;">
+                        <small class="text-muted">ใบรับรองผลการเรียน</small>
+                        <img src="{{ App\Http\Controllers\ApplicantController::renderDocument($data['_id'], 'gradecert') }}" class="img-responsive">
                     </div>
                     <small>(คลิกที่รูปเพื่อดูรูปขนาดใหญ่ขึ้น)</small>
                 </div>
@@ -96,22 +107,28 @@
         var currentDoc = "photo";
 
         $("#btnGenInfo").click(function(e){
+            e.preventDefault();
             showDocument("photo");
         });
         $("#btnCID").click(function(e){
+            e.preventDefault();
             showDocument("cid");
         });
         $("#btnTranscript").click(function(e){
+            e.preventDefault();
             showDocument("transcript");
         });
         $("#btnStudentHR").click(function(e){
+            e.preventDefault();
             showDocument("student_hr");
         });
         $("#btnGradeVerification").click(function(e){
+            e.preventDefault();
             showDocument("grade_verification");
         });
 
         function showDocument(document_name){
+            console.log("SHOWING DOC: " + document_name);
             $(".document").hide();
             $("#document_" + document_name).show();
         }
