@@ -269,6 +269,10 @@ class ApplicantController extends Controller{
         $result = curl_exec($ch);
         $returnHttpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
+        if($returnHttpCode == 404){
+            return '/assets/images/woah.png';
+        }
+
         $file = json_decode($result)->data->$document_name;
 
         $f = finfo_open();
