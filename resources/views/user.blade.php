@@ -64,13 +64,13 @@
             <div class="col-xs-6">
                 <div class="documentContainer" align="center">
                     <div class="document" id="document_photo">
-                        <img src="assets/mockup/examplephoto.jpg" class="img-responsive">
+                        <img src="{{ App\Http\Controllers\ApplicantController::renderDocument($data['_id'], 'image') }}" class="img-responsive">
                     </div>
                     <div class="document" id="document_cid" style="display:none;">
-                        <img src="assets/mockup/cid.jpg" class="img-responsive">
+                        <img src="{{ App\Http\Controllers\ApplicantController::renderDocument($data['_id'], 'citizen_card') }}" class="img-responsive">
                     </div>
                     <div class="document" id="document_transcript" style="display:none;">
-                        <img src="assets/mockup/transcript.jpg" class="img-responsive">
+                        <img src="{{ App\Http\Controllers\ApplicantController::renderDocument($data['_id'], 'transcript') }}" class="img-responsive">
                     </div>
                     <small>(คลิกที่รูปเพื่อดูรูปขนาดใหญ่ขึ้น)</small>
                 </div>
