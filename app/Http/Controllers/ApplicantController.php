@@ -247,4 +247,34 @@ class ApplicantController extends Controller{
         return $passed_id;
     }
 
+    public static function renderDocument($object_id, $document_name){
+        $db = Applicant::where('_id', $object_id)->first();
+
+        $sendto = Config::get('api.base_path').'/api/v1/documents/'.$db['citizen_id'].'/'.$document_name;
+        $sendto .= '?timestamp='.$db['documents']['timestamp'].'&token='.$db['documents']['access_token'];
+
+        // Init cURL and set stuff:
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $sendto);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+
+        // VERY VERY IMPORTANT: the API key header.
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            "api-key: 1234" // TODO : insert real api key
+        ));
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        // run the cURL query
+        $result = curl_exec($ch);
+        $returnHttpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+        $file = json_decode($result)->data->$document_name;
+
+        $f = finfo_open();
+        $mime_type = finfo_buffer($f, $file, FILEINFO_MIME_TYPE);
+        finfo_close($f);
+
+        return 'data:'.$mime_type.';base64,'.$file;
+    }
 }
