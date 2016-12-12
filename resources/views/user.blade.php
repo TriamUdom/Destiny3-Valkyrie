@@ -6,15 +6,15 @@
     @else
         <div class="row">
             <div class="col-xs-6">
-                <h4 style="margin-bottom:0;"><b>นายทดสอบ ระบบ</b></h4>
-                <h6 style="margin-top:0;font-size:1.1em;margin-bottom:0;">Mr. System Test</h6>
+                <h4 style="margin-bottom:0;"><b>{{$data->title}}{{$data->fname}} {{$data->lname}}</b></h4>
+                <h6 style="margin-top:0;font-size:1.1em;margin-bottom:0;">{{$data->title_en}} {{$data->fname_en}} {{$data->lname_en}}</h6>
                 <hr style="margin-top:5px;margin-bottom:15px;">
                 <div class="row">
                     <div class="col-xs-4">
-                        <p><i class="fa fa-phone"></i> (088) 888-8888</p>
+                        <p><i class="fa fa-phone"></i> {{$data->phone}} {{-- TODO: FORMATTING --}}</p>
                     </div>
                     <div class="col-xs-8">
-                        <p><i class="fa fa-envelope"></i> test@example.com</p>
+                        <p><i class="fa fa-envelope"></i> {{$data->email}}</p>
                     </div>
                 </div>
                 <hr style="margin-top:0px;margin-bottom:15px;">
@@ -43,16 +43,23 @@
 
                 <div class="infoContainer">
                     <div class="info" id="info_photo">
-                        <p>วัน/เดือน/ปีเกิด: <b>00 มกราคม 0000</b> </p>
+                        <p>วัน/เดือน/ปีเกิด: <b>{{$data->birthdate["day"]}} / {{$data->birthdate["month"]}} / {{$data->birthdate["year"]}}</b> </p>
+                        <p>จบการศึกษาจากโรงเรียน: <b>{{$data->school}}</b> </p>
                     </div>
                     <div class="info" id="info_cid" style="display:none;">
-                        <p>เลขประจำตัวประชาชน: <b>1-1111-11111-11-9</b> </p>
-                        <p>วัน/เดือน/ปีเกิด: <b>00 มกราคม 0000</b> </p>
-                        <p>ที่อยู่ปัจจุบัน: <b>12/231 ต.วังใหม่ อ.ทดสอบ จ.กระบี่ 10000</b> </p>
-                        <p>ที่อยู่ตามทะเบียนบ้าน: <b>12/231 ต.วังใหม่ อ.ทดสอบ จ.กระบี่ 10000</b> </p>
+                        <p>เลขประจำตัวประชาชน: <b>{{$data->citizen_id}}</b> </p>
+                        <p>วัน/เดือน/ปีเกิด: <b>{{$data->birthdate["day"]}} / {{$data->birthdate["month"]}} / {{$data->birthdate["year"]}}</b> </p>
+                        <p>ที่อยู่ปัจจุบัน: <b>{{$data->address["home"]["home_address"]}} หมู่ {{$data->address["home"]["home_moo"]}} ซอย {{$data->address["home"]["home_soi"]}} ถนน{{$data->address["home"]["home_road"]}} ตำบล{{$data->address["home"]["home_subdistrict"]}} อำเภอ{{$data->address["home"]["home_district"]}} จังหวัด{{$data->address["home"]["home_province"]}} {{$data->address["home"]["home_postcode"]}}</b> </p>
+                        <p>ที่อยู่ตามทะเบียนบ้าน: <b>{{$data->address["current"]["current_address"]}} หมู่ {{$data->address["current"]["current_moo"]}} ซอย {{$data->address["current"]["current_soi"]}} ถนน{{$data->address["current"]["current_road"]}} ตำบล{{$data->address["current"]["current_subdistrict"]}} อำเภอ{{$data->address["current"]["current_district"]}} จังหวัด{{$data->address["current"]["current_province"]}} {{$data->address["current"]["current_postcode"]}}</b> </p>
                     </div>
                     <div class="info" id="info_transcript" style="display:none;">
                         Transcript data goes here
+                    </div>
+                    <div class="info" id="info_student_hr" style="display:none;">
+                        <p>เลขประจำตัวประชาชน: <b>{{$data->citizen_id}}</b> </p>
+                        <p>วัน/เดือน/ปีเกิด: <b>{{$data->birthdate["day"]}} / {{$data->birthdate["month"]}} / {{$data->birthdate["year"]}}</b> </p>
+                        <p>ที่อยู่ปัจจุบัน: <b>{{$data->address["home"]["home_address"]}} หมู่ {{$data->address["home"]["home_moo"]}} ซอย {{$data->address["home"]["home_soi"]}} ถนน{{$data->address["home"]["home_road"]}} ตำบล{{$data->address["home"]["home_subdistrict"]}} อำเภอ{{$data->address["home"]["home_district"]}} จังหวัด{{$data->address["home"]["home_province"]}} {{$data->address["home"]["home_postcode"]}}</b> </p>
+                        <p>ที่อยู่ตามทะเบียนบ้าน: <b>{{$data->address["current"]["current_address"]}} หมู่ {{$data->address["current"]["current_moo"]}} ซอย {{$data->address["current"]["current_soi"]}} ถนน{{$data->address["current"]["current_road"]}} ตำบล{{$data->address["current"]["current_subdistrict"]}} อำเภอ{{$data->address["current"]["current_district"]}} จังหวัด{{$data->address["current"]["current_province"]}} {{$data->address["current"]["current_postcode"]}}</b> </p>
                     </div>
                 </div>
 
@@ -129,7 +136,10 @@
 
         function showDocument(document_name){
             console.log("SHOWING DOC: " + document_name);
+            currentDoc = document_name;
+            $(".info").hide();
             $(".document").hide();
+            $("#info_" + document_name).show();
             $("#document_" + document_name).show();
         }
     </script>
