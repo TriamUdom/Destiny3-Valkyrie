@@ -69,23 +69,23 @@
                 <div class="documentContainer" align="center">
                     <div class="document" id="document_photo">
                         <small class="text-muted">รูปถ่ายนักเรียน</small>
-                        <img src="{{ App\Http\Controllers\ApplicantController::renderDocument($data['_id'], 'image') }}" class="img-responsive">
+                        <img src="{{ App\Http\Controllers\ApplicantController::renderDocument($data['_id'], 'image') }}" class="img-responsive zoomableImage">
                     </div>
                     <div class="document" id="document_cid" style="display:none;">
                         <small class="text-muted">บัตรประจำตัวประชาชน</small>
-                        <img src="{{ App\Http\Controllers\ApplicantController::renderDocument($data['_id'], 'citizen_card') }}" class="img-responsive">
+                        <img src="{{ App\Http\Controllers\ApplicantController::renderDocument($data['_id'], 'citizen_card') }}" class="img-responsive zoomableImage">
                     </div>
                     <div class="document" id="document_transcript" style="display:none;">
                         <small class="text-muted">ใบแสดงผลการเรียน</small>
-                        <img src="{{ App\Http\Controllers\ApplicantController::renderDocument($data['_id'], 'transcript') }}" class="img-responsive">
+                        <img src="{{ App\Http\Controllers\ApplicantController::renderDocument($data['_id'], 'transcript') }}" class="img-responsive zoomableImage">
                     </div>
                     <div class="document" id="document_student_hr" style="display:none;">
                         <small class="text-muted">ทะเบียนบ้านนักเรียน</small>
-                        <img src="{{ App\Http\Controllers\ApplicantController::renderDocument($data['_id'], 'student_hr') }}" class="img-responsive">
+                        <img src="{{ App\Http\Controllers\ApplicantController::renderDocument($data['_id'], 'student_hr') }}" class="img-responsive zoomableImage">
                     </div>
                     <div class="document" id="document_grade_verification" style="display:none;">
                         <small class="text-muted">ใบรับรองผลการเรียน</small>
-                        <img src="{{ App\Http\Controllers\ApplicantController::renderDocument($data['_id'], 'gradecert') }}" class="img-responsive">
+                        <img src="{{ App\Http\Controllers\ApplicantController::renderDocument($data['_id'], 'gradecert') }}" class="img-responsive zoomableImage">
                     </div>
                     <small>(คลิกที่รูปเพื่อดูรูปขนาดใหญ่ขึ้น)</small>
                 </div>
@@ -100,6 +100,8 @@
                 </div>
             </div>
         </div>
+
+
 
         <form action="/applicants/status/{{ $data['_id'] }}" method="post">
             <input type="hidden" value="1" name="status">
@@ -142,5 +144,12 @@
             $("#info_" + document_name).show();
             $("#document_" + document_name).show();
         }
+
+        $(".zoomableImage").click(function(){
+            bootbox.alert({
+                message: "<img src='" + $(this).attr("src") + "' style='width:100%;' />",
+                size: 'large'
+            });
+        });
     </script>
 @endsection
