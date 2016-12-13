@@ -24,19 +24,19 @@
                 <hr style="margin-top:0px;margin-bottom:15px;">
                 <div class="row">
                     <div class="col-xs-4">
-                        <button id="btnCID" class="btn btn-sm btn-block btn-primary">บัตรประจำตัวประชาชน</button>
+                        <button id="btn_cid" class="btn btn-sm btn-block btn-primary">บัตรประจำตัวประชาชน <i class="fa fa-check-circle" id="check_cid" style="display:none;"></i> <i class="fa fa-times" id="error_cid" style="display:none;"></i></button>
                     </div>
                     <div class="col-xs-4">
-                        <button id="btnTranscript" class="btn btn-sm btn-block btn-primary">ผลการเรียน</button>
+                        <button id="btn_transcript" class="btn btn-sm btn-block btn-primary">ผลการเรียน <i class="fa fa-check-circle" id="check_transcript" style="display:none;"></i> <i class="fa fa-times" id="error_transcript" style="display:none;"></i></button>
                     </div>
                     <div class="col-xs-4">
-                        <button id="btnStudentHR" class="btn btn-sm btn-block btn-primary">ทะเบียนบ้านนักเรียน</button>
+                        <button id="btn_student_hr" class="btn btn-sm btn-block btn-primary">ทะเบียนบ้านนักเรียน <i class="fa fa-check-circle" id="check_student_hr" style="display:none;"></i> <i class="fa fa-times" id="error_student_hr" style="display:none;"></i></button>
                     </div>
                 </div>
                 <div style="height:10px;">&nbsp;</div>
                 <div class="row">
                     <div class="col-xs-4">
-                        <button id="btnGradeVerification" class="btn btn-sm btn-block btn-primary">ใบรับรองผลการเรียน</button>
+                        <button id="btn_grade_verification" class="btn btn-sm btn-block btn-primary">ใบรับรองผลการเรียน <i class="fa fa-check-circle" id="check_grade_verification" style="display:none;"></i> <i class="fa fa-times" id="error_grade_verification" style="display:none;"></i></button>
                     </div>
                 </div>
                 <div style="height:10px;">&nbsp;</div>
@@ -58,8 +58,24 @@
                         <p>ที่อยู่ปัจจุบัน: <b>{{$data->address["home"]["home_address"]}} หมู่ {{$data->address["home"]["home_moo"]}} ซอย {{$data->address["home"]["home_soi"]}} ถนน{{$data->address["home"]["home_road"]}} ตำบล{{$data->address["home"]["home_subdistrict"]}} อำเภอ{{$data->address["home"]["home_district"]}} จังหวัด{{$data->address["home"]["home_province"]}} {{$data->address["home"]["home_postcode"]}}</b> </p>
                         <p>ที่อยู่ตามทะเบียนบ้าน: <b>{{$data->address["current"]["current_address"]}} หมู่ {{$data->address["current"]["current_moo"]}} ซอย {{$data->address["current"]["current_soi"]}} ถนน{{$data->address["current"]["current_road"]}} ตำบล{{$data->address["current"]["current_subdistrict"]}} อำเภอ{{$data->address["current"]["current_district"]}} จังหวัด{{$data->address["current"]["current_province"]}} {{$data->address["current"]["current_postcode"]}}</b> </p>
                     </div>
+                    <div class="info" id="info_grade_verification" style="display:none;">
+                        Grade verification data goes here
+                    </div>
                 </div>
 
+                <hr />
+                <form action="/applicants/status/{{ $data['_id'] }}" method="post">
+                    <input type="hidden" value="1" name="status">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <button id="btnAcceptApplication" class="btn btn-block btn-success disabled">Accept Submission</button>
+                        </div>
+                        <div class="col-xs-6">
+                            <button id="btnThrowIntoRejectBin" class="btn btn-block btn-danger btn-reject disabled">Reject Submission</button>
+                        </div>
+                    </div>
+                    {{ csrf_field() }}
+                </form>
 
             </div>
             <div class="col-xs-6">
@@ -94,39 +110,125 @@
             </div>
         </div>
 
-
-
-        <form action="/applicants/status/{{ $data['_id'] }}" method="post">
-            <input type="hidden" value="1" name="status">
-            <input type="submit" value="accept">
-            {{ csrf_field() }}
-        </form>
     @endif
 @endsection
 
 @section('additional_scripts')
     <script>
-        var currentDoc = "photo";
+        var currentDoc = "cid";
+        var acceptedDocs = [];
+        var rejectedDocs = [];
+        var rejectedReasons = [];
+        var totalDocuments = 4;
 
-        $("#btnGenInfo").click(function(e){
+        function isAcceptable(){
+            // Count accepted docs - should be equal to the number of total docs.
+            // The number of rejected docs should be zero
+            if(acceptedDocs.length == totalDocuments && rejectedDocs.length == 0){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        function checkAndEnableGrandButtons(){
+            console.log("Total number of documents: " +  totalDocuments + ", Accepted: " + acceptedDocs.length + ", Rejected: " + rejectedDocs.length);
+            if(parseInt(acceptedDocs.length) + parseInt(rejectedDocs.length) == totalDocuments){
+                console.log("Everything checked");
+                // Checked everything
+                if(isAcceptable() === true){
+                    console.log("Everything checks out");
+                    $("#btnAcceptApplication").removeClass("disabled");
+                    $("#btnThrowIntoRejectBin").removeClass("disabled").addClass("disabled");
+                }else{
+                    $("#btnAcceptApplication").removeClass("disabled").addClass("disabled");
+                    $("#btnThrowIntoRejectBin").removeClass("disabled");
+                }
+            }else{
+                // N.O.P.E.
+                $("#btnAcceptApplication").removeClass("disabled").addClass("disabled");
+                $("#btnThrowIntoRejectBin").removeClass("disabled").addClass("disabled");
+            }
+        }
+
+        $("#btnAcceptApplication").click(function(e){
             e.preventDefault();
-            showDocument("photo");
+            // SUBMIT Everything
+            // TODO: ADD AJAX
         });
-        $("#btnCID").click(function(e){
+
+        $("#btnThrowIntoRejectBin").click(function(e){
+            e.preventDefault();
+            // REJECT the application
+            // TODO: ADD AJAX
+        });
+
+        $("#btn_cid").click(function(e){
             e.preventDefault();
             showDocument("cid");
         });
-        $("#btnTranscript").click(function(e){
+        $("#btn_transcript").click(function(e){
             e.preventDefault();
             showDocument("transcript");
         });
-        $("#btnStudentHR").click(function(e){
+        $("#btn_student_hr").click(function(e){
             e.preventDefault();
             showDocument("student_hr");
         });
-        $("#btnGradeVerification").click(function(e){
+        $("#btn_grade_verification").click(function(e){
             e.preventDefault();
             showDocument("grade_verification");
+        });
+
+        $("#btnAcceptDoc").click(function(e){
+            e.preventDefault();
+            if($.inArray(currentDoc, acceptedDocs) == -1){
+                console.log("Pushed [" + currentDoc + "] to accepted documents list");
+                acceptedDocs.push(currentDoc);
+                $("#error_" + currentDoc).hide();
+                $("#check_" + currentDoc).show();
+
+                // Remove from reject bin (& rejected reasons bin)
+                var rejectIndex = rejectedDocs.indexOf(currentDoc);
+                if (rejectIndex > -1) {
+                    rejectedDocs.splice(rejectIndex, 1);
+                    rejectedReasons.splice(rejectIndex, 1);
+                    console.log("Removed [" + currentDoc + "] from the rejected documents list");
+                }
+
+            }
+            checkAndEnableGrandButtons();
+        });
+
+        $("#btnRejectDoc").click(function(e){
+            e.preventDefault();
+            bootbox.prompt({
+                title: "ปฎิเสธเอกสาร: กรุณาระบุเหตุผล",
+                inputType: 'textarea',
+                callback: function (reason) {
+                    if(reason !== null){
+                        // Got something
+                        $("#error_" + currentDoc).show();
+                        $("#check_" + currentDoc).hide();
+
+                        // Save reject & reject reason (if not exists)
+                        if($.inArray(currentDoc, rejectedDocs) == -1){
+                            console.log("Added [" + currentDoc + "] to the rejected documents list");
+                            rejectedDocs.push(currentDoc);
+                            rejectedReasons.push(reason);
+                        }
+
+                        // Remove from accepted documents list (if exists):
+                        var acceptedIndex = acceptedDocs.indexOf(currentDoc);
+                        if (acceptedIndex > -1) {
+                            acceptedDocs.splice(acceptedIndex, 1);
+                            console.log("Removed [" + currentDoc + "] from the accepted documents list");
+                        }
+                    }
+
+                }
+            });
+            checkAndEnableGrandButtons();
         });
 
         function showDocument(document_name){
