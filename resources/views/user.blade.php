@@ -66,16 +66,17 @@
                 <hr />
                 <form action="/applicants/status/{{ $data['_id'] }}" method="post">
                     <input type="hidden" value="1" name="status">
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <button id="btnAcceptApplication" class="btn btn-block btn-success disabled">Accept Submission</button>
-                        </div>
-                        <div class="col-xs-6">
-                            <button id="btnThrowIntoRejectBin" class="btn btn-block btn-danger btn-reject disabled">Reject Submission</button>
-                        </div>
-                    </div>
+
                     {{ csrf_field() }}
                 </form>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <button id="btnAcceptApplication" class="btn btn-block btn-success disabled">Accept Submission</button>
+                    </div>
+                    <div class="col-xs-6">
+                        <button id="btnThrowIntoRejectBin" class="btn btn-block btn-danger btn-reject disabled">Reject Submission</button>
+                    </div>
+                </div>
 
             </div>
             <div class="col-xs-6">
@@ -155,6 +156,7 @@
             e.preventDefault();
             // SUBMIT Everything
             // TODO: ADD AJAX
+            // {{ $data['_id'] }}
         });
 
         $("#btnThrowIntoRejectBin").click(function(e){
@@ -242,7 +244,17 @@
 
         $(".zoomableImage").click(function(){
             bootbox.alert({
-                message: "<img src='" + $(this).attr("src") + "' style='width:100%;' />",
+                message: "\
+                    <div class='row'>\
+                        <div class='col-xs-3'>\
+                            <span class='text-muted'>รูปถ่ายนักเรียน</span>\
+                            <img src='{{ App\Http\Controllers\ApplicantController::renderDocument($data['_id'], 'image') }}' class='img-responsive zoomableImage'> \
+                        </div>\
+                        <div class='col-xs-9'>\
+                            <span class='text-muted'>เอกสาร</span>\
+                            <img src='" + $(this).attr("src") + "' style='width:100%;' /> \
+                        </div>\
+                    </div>",
                 size: 'large'
             });
         });
