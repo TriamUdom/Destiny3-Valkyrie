@@ -6,34 +6,35 @@
     @else
         <div class="row">
             <div class="col-xs-6">
-                <h4 style="margin-bottom:0;"><b>{{$data->title}}{{$data->fname}} {{$data->lname}}</b></h4>
-                <h6 style="margin-top:0;font-size:1.1em;margin-bottom:0;">{{$data->title_en}} {{$data->fname_en}} {{$data->lname_en}}</h6>
-                <hr style="margin-top:5px;margin-bottom:15px;">
                 <div class="row">
                     <div class="col-xs-4">
-                        <p><i class="fa fa-phone"></i> {{$data->phone}} {{-- TODO: FORMATTING --}}</p>
+                        <img src="{{ App\Http\Controllers\ApplicantController::renderDocument($data['_id'], 'image') }}" class="img-responsive zoomableImage">
                     </div>
                     <div class="col-xs-8">
-                        <p><i class="fa fa-envelope"></i> {{$data->email}}</p>
+                        <h4 style="margin-bottom:0;"><b>{{$data->title}}{{$data->fname}} {{$data->lname}}</b></h4>
+                        <h6 style="margin-top:0;font-size:1.1em;margin-bottom:0;">{{$data->title_en}} {{$data->fname_en}} {{$data->lname_en}}</h6>
+                        <hr style="margin-top:5px;margin-bottom:15px;">
+                        <div class="row">
+                            <p><i class="fa fa-phone"></i> {{$data->phone}} {{-- TODO: FORMATTING --}}</p>
+                            <p><i class="fa fa-envelope"></i> {{$data->email}}</p>
+                        </div>
                     </div>
                 </div>
+
                 <hr style="margin-top:0px;margin-bottom:15px;">
                 <div class="row">
-                    <div class="col-xs-4">
-                        <button id="btnGenInfo" class="btn btn-sm btn-block btn-primary">รูปถ่าย</button>
-                    </div>
                     <div class="col-xs-4">
                         <button id="btnCID" class="btn btn-sm btn-block btn-primary">บัตรประจำตัวประชาชน</button>
                     </div>
                     <div class="col-xs-4">
                         <button id="btnTranscript" class="btn btn-sm btn-block btn-primary">ผลการเรียน</button>
                     </div>
-                </div>
-                <div style="height:10px;">&nbsp;</div>
-                <div class="row">
                     <div class="col-xs-4">
                         <button id="btnStudentHR" class="btn btn-sm btn-block btn-primary">ทะเบียนบ้านนักเรียน</button>
                     </div>
+                </div>
+                <div style="height:10px;">&nbsp;</div>
+                <div class="row">
                     <div class="col-xs-4">
                         <button id="btnGradeVerification" class="btn btn-sm btn-block btn-primary">ใบรับรองผลการเรียน</button>
                     </div>
@@ -42,11 +43,7 @@
                 <hr style="margin-top:0px;margin-bottom:15px;">
 
                 <div class="infoContainer">
-                    <div class="info" id="info_photo">
-                        <p>วัน/เดือน/ปีเกิด: <b>{{$data->birthdate["day"]}} / {{$data->birthdate["month"]}} / {{$data->birthdate["year"]}}</b> </p>
-                        <p>จบการศึกษาจากโรงเรียน: <b>{{$data->school}}</b> </p>
-                    </div>
-                    <div class="info" id="info_cid" style="display:none;">
+                    <div class="info" id="info_cid">
                         <p>เลขประจำตัวประชาชน: <b>{{$data->citizen_id}}</b> </p>
                         <p>วัน/เดือน/ปีเกิด: <b>{{$data->birthdate["day"]}} / {{$data->birthdate["month"]}} / {{$data->birthdate["year"]}}</b> </p>
                         <p>ที่อยู่ปัจจุบัน: <b>{{$data->address["home"]["home_address"]}} หมู่ {{$data->address["home"]["home_moo"]}} ซอย {{$data->address["home"]["home_soi"]}} ถนน{{$data->address["home"]["home_road"]}} ตำบล{{$data->address["home"]["home_subdistrict"]}} อำเภอ{{$data->address["home"]["home_district"]}} จังหวัด{{$data->address["home"]["home_province"]}} {{$data->address["home"]["home_postcode"]}}</b> </p>
@@ -67,11 +64,7 @@
             </div>
             <div class="col-xs-6">
                 <div class="documentContainer" align="center">
-                    <div class="document" id="document_photo">
-                        <small class="text-muted">รูปถ่ายนักเรียน</small>
-                        <img src="{{ App\Http\Controllers\ApplicantController::renderDocument($data['_id'], 'image') }}" class="img-responsive zoomableImage">
-                    </div>
-                    <div class="document" id="document_cid" style="display:none;">
+                    <div class="document" id="document_cid">
                         <small class="text-muted">บัตรประจำตัวประชาชน</small>
                         <img src="{{ App\Http\Controllers\ApplicantController::renderDocument($data['_id'], 'citizen_card') }}" class="img-responsive zoomableImage">
                     </div>
