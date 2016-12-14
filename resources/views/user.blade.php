@@ -167,14 +167,45 @@
         $("#btnAcceptApplication").click(function(e){
             e.preventDefault();
             // SUBMIT Everything
-            // TODO: ADD AJAX
-            // {{ $data['_id'] }}
+            $.ajax({
+                url: '/applicants/status/{{ $data['_id'] }}/',
+                data: {
+                    status: "1"
+                },
+                error: function (request, status, error) {
+                    console.log("(" + request.status + ") Exception:" + request.responseText);
+                },
+                dataType: 'json',
+                success: function(data) {
+
+                    // Tell the user that everything went well
+                    console.log("AJAX complete - sent accept all");
+
+                },
+                type: 'POST'
+            });
         });
 
         $("#btnThrowIntoRejectBin").click(function(e){
             e.preventDefault();
             // REJECT the application
-            // TODO: ADD AJAX
+            $.ajax({
+                url: '/applicants/status/{{ $data['_id'] }}/',
+                data: {
+                    status: "1"
+                },
+                error: function (request, status, error) {
+                    console.log("(" + request.status + ") Exception:" + request.responseText);
+                },
+                dataType: 'json',
+                success: function(data) {
+
+                    // Tell the user that everything went well
+                    console.log("AJAX complete - sent reject all");
+
+                },
+                type: 'POST'
+            });
         });
 
         $("#btn_photo").click(function(e){
