@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Applicant;
+use App\PassedApplicant;
 use RESTResponse;
 use DB;
 use Log;
@@ -226,6 +227,44 @@ class ApplicantController extends Controller{
         $returnHttpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
         return $returnHttpCode;
+    }
+
+    public static function saveDataToCore($id){
+        $data = Applicant::where('_id', $id)->first();
+
+        PassedApplicant::create([
+            'citizen_id' => $data['citizen_id'],
+            'title' => $data['title'],
+            'fname' => $data['fname'],
+            'lname' => $data['lname'],
+            'title_en' => $data['title_en'],
+            'fname_en' => $data['fname_en'],
+            'lname_en' => $data['lname_en'],
+            'gender' => $data['gender'],
+            'email' => $data['email'],
+            'phone' => $data['phone'],
+            'birthdate' => $data['birthdate'],
+            'staying_with_parent' => $data['staying_with_parent'],
+            'father' => $data['father'],
+            'mother' => $data['mother'],
+            'guardian' => $data['guardian'],
+            'school' => $data['school'],
+            'school_province' => $data['school_province'],
+            'school2' => $data['school2'],
+            'school2_province' => $data['school2_province'],
+            'gpa' => $data['gpa'],
+            'address' => $data['address'],
+            'application_type' => $data['application_type'],
+            'quota_type' => $data['quota_type'],
+            'plan' => $data['plan'],
+            'majors' => $data['majors'],
+            'quota_grade' => $data['quota_grade'],
+            'documents' => $data['documents'],
+            'submitted' => $data['submitted'],
+            'passed' => time(),
+        ]);
+
+        return true;
     }
 
     public static function getPassedApplicantID(){
