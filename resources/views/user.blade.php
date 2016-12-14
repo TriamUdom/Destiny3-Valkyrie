@@ -167,9 +167,12 @@
         $("#btnAcceptApplication").click(function(e){
             e.preventDefault();
             // SUBMIT Everything
+            console.log("Sending acceptance");
+
             $.ajax({
                 url: '/applicants/status/{{ $data['_id'] }}/',
                 data: {
+                    _token: csrfToken,
                     status: "1"
                 },
                 error: function (request, status, error) {
@@ -189,9 +192,11 @@
         $("#btnThrowIntoRejectBin").click(function(e){
             e.preventDefault();
             // REJECT the application
+            console.log("Sending rejection");
             $.ajax({
                 url: '/applicants/status/{{ $data['_id'] }}/',
                 data: {
+                    _token: csrfToken,
                     status: "1"
                 },
                 error: function (request, status, error) {
@@ -240,6 +245,7 @@
                 $.ajax({
                     url: '/applicants/{{ $data['_id'] }}/' + currentDoc,
                     data: {
+                        _token: csrfToken,
                         action: "accepted"
                     },
                     error: function (request, status, error) {
@@ -287,6 +293,7 @@
                             $.ajax({
                                 url: '/applicants/{{ $data['_id'] }}/' + currentDoc,
                                 data: {
+                                    _token: csrfToken,
                                     action: "denial",
                                     comment: reason
                                 },
