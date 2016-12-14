@@ -91,6 +91,11 @@ class ApplicantController extends Controller{
             abort(400);
         }
 
+        $this->validate($request, [
+            'action' => 'required',
+            'comment' => 'required_if:action,accepted',
+        ]);
+
         $update = Applicant::where('_id', $object_id)->update([
             'evaluation.'.Session::get('admin_id').'.'.$document.'.status' => $accepted_action[$request->input('action')],
             'evaluation.'.Session::get('admin_id').'.'.$document.'.comment' => $accepted_action[$request->input('comment')],
