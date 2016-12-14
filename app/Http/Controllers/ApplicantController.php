@@ -86,9 +86,9 @@ class ApplicantController extends Controller{
             abort(400);
         }
 
-        $accepted_action = ['accepted' => 1, 'denial' => -1];
+        $accepted_action = ['accepted', 'denial', '1', '-1'];
         if(!in_array($request->input('action'), $accepted_action)){
-            abort(400);
+            abort(400, $request->input('action'));
         }
 
         $this->validate($request, [

@@ -197,7 +197,7 @@
                 url: '/applicants/status/{{ $data['_id'] }}/',
                 data: {
                     _token: csrfToken,
-                    status: "1"
+                    status: "-1"
                 },
                 error: function (request, status, error) {
                     console.log("(" + request.status + ") Exception:" + request.responseText);
