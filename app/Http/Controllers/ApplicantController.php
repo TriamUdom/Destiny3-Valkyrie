@@ -110,8 +110,6 @@ class ApplicantController extends Controller{
 
         if($update === 1){
             return RESTResponse::ok();
-        }else if($update === 0){
-            return RESTResponse::notFound();
         }else{
             throw new Exception('More than one row was effected');
         }
