@@ -188,7 +188,7 @@
 
                     // Tell the user that everything went well
                     console.log("AJAX complete - sent accept all");
-
+                    location.replace("/");
                 }
             });
         });
@@ -212,7 +212,7 @@
 
                     // Tell the user that everything went well
                     console.log("AJAX complete - sent reject all");
-
+                    location.replace("/");
                 }
             });
         });
