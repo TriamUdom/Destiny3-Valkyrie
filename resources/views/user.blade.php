@@ -24,7 +24,7 @@
                 <hr style="margin-top:0px;margin-bottom:15px;">
                 <div class="row">
                     <div class="col-xs-4">
-                        <button id="btn_photo" class="btn btn-sm btn-block btn-primary">รูปถ่ายนักเรียน <i class="fa fa-check-circle" id="check_photo" style="display:none;"></i> <i class="fa fa-times" id="error_photo" style="display:none;"></i></button>
+                        <button id="btn_image" class="btn btn-sm btn-block btn-primary">รูปถ่ายนักเรียน <i class="fa fa-check-circle" id="check_image" style="display:none;"></i> <i class="fa fa-times" id="error_image" style="display:none;"></i></button>
                     </div>
                     <div class="col-xs-4">
                         <button id="btn_cid" class="btn btn-sm btn-block btn-primary">บัตรประจำตัวประชาชน <i class="fa fa-check-circle" id="check_cid" style="display:none;"></i> <i class="fa fa-times" id="error_cid" style="display:none;"></i></button>
@@ -46,7 +46,7 @@
                 <hr style="margin-top:0px;margin-bottom:15px;">
 
                 <div class="infoContainer">
-                    <div class="info" id="info_photo">
+                    <div class="info" id="info_image">
                         <p>เลขประจำตัวประชาชน: <b>{{$data->citizen_id}}</b> </p>
                         <p>วัน/เดือน/ปีเกิด: <b>{{$data->birthdate["day"]}} / {{$data->birthdate["month"]}} / {{$data->birthdate["year"]}}</b> </p>
                     </div>
@@ -88,7 +88,7 @@
             </div>
             <div class="col-xs-6">
                 <div class="documentContainer" align="center">
-                    <div class="document" id="document_photo">
+                    <div class="document" id="document_image">
                         <small class="text-muted">รูปถ่าย</small>
                         <img src="{{ App\Http\Controllers\ApplicantController::renderDocument($data['_id'], 'image') }}" class="img-responsive zoomableImage">
                     </div>
@@ -127,7 +127,7 @@
 
 @section('additional_scripts')
     <script>
-        var currentDoc = "photo";
+        var currentDoc = "image";
         var acceptedDocs = [];
         var rejectedDocs = [];
         var rejectedReasons = [];
@@ -213,9 +213,9 @@
             });
         });
 
-        $("#btn_photo").click(function(e){
+        $("#btn_image").click(function(e){
             e.preventDefault();
-            showDocument("photo");
+            showDocument("image");
         });
         $("#btn_cid").click(function(e){
             e.preventDefault();
@@ -246,7 +246,7 @@
                     url: '/applicants/{{ $data['_id'] }}/' + currentDoc,
                     data: {
                         _token: csrfToken,
-                        action: "accepted"
+                        action: "1"
                     },
                     error: function (request, status, error) {
                         console.log("(" + request.status + ") Exception:" + request.responseText);
@@ -294,7 +294,7 @@
                                 url: '/applicants/{{ $data['_id'] }}/' + currentDoc,
                                 data: {
                                     _token: csrfToken,
-                                    action: "denial",
+                                    action: "-1",
                                     comment: reason
                                 },
                                 error: function (request, status, error) {
