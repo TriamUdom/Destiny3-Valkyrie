@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\NotifyUI::class
+        Commands\NotifyUI::class,
+        Commands\FormatData::class,
     ];
 
     /**
