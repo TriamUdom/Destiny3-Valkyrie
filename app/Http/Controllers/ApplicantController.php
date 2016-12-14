@@ -108,10 +108,10 @@ class ApplicantController extends Controller{
             'evaluation.'.Session::get('admin_id').'.'.$document.'.comment' => $comment,
         ]);
 
-        if($update === 1){
-            return RESTResponse::ok();
-        }else{
+        if($update > 1){
             throw new Exception('More than one row was effected');
+        }else{
+            return RESTResponse::ok();
         }
     }
 
