@@ -107,8 +107,6 @@ class ApplicantController extends Controller{
             'evaluation.'.Session::get('admin_id').'.'.$document.'.comment' => $comment,
         ]);
 
-        return RESTResponse::ok();
-
         if($update === 1){
             return RESTResponse::ok();
         }else if($update === 0){
