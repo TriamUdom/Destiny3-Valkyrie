@@ -142,7 +142,7 @@ class ApplicantController extends Controller{
             }
         }
 
-        return RESTResponse::ok();
+        return redirect('/')->with('message', 'UI notified');
     }
 
     private function notifyUIOnFailure($status, $object_id){
