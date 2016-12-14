@@ -134,6 +134,8 @@ class ApplicantController extends Controller{
                 return RESTResponse::serverError('Cannot send data to UI');
             }
         }
+
+        return RESTResponse::ok();
     }
 
     private function notifyUIOnFailure($status, $object_id){
