@@ -55,6 +55,9 @@ class NotifyUI extends Command
             if($returnHttpCode != 200){
                 $this->error($returnHttpCode.' returned for ID : '.$id);
             }
+
+            ApplicantController::saveDataToCore($id);
+
             $bar->advance();
         }
 
