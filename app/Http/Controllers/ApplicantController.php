@@ -281,15 +281,25 @@ class ApplicantController extends Controller{
                 continue;
             }
 
+            $passed = 0;
+
             foreach($applicant->evaluation as $eval_admin){
+                if(count($eval_admin) != 5){
+                    break;
+                }
+
                 foreach($eval_admin as $document){
                     if($document['status'] == 0 || $document['status'] == -1){
                         break 2;
+                    }else{
+                        $passed++;
                     }
                 }
             }
 
-            $passed_id[] = $object_id;
+            if($passed >= 9){
+                $passed_id[] = $object_id;
+            }
         }
 
         if(empty($passed_id)){
