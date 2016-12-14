@@ -85,21 +85,29 @@ class ApplicantController extends Controller{
         if(!in_array($document, $accepted_document)){
             abort(400);
         }
-
+/*
         $accepted_action = ['accepted', 'denial', '1', '-1'];
         if(!in_array($request->input('action'), $accepted_action)){
             abort(400, $request->input('action'));
         }
-
-        $this->validate($request, [
+*/
+        /*$this->validate($request, [
             'action' => 'required',
             'comment' => 'required_if:action,accepted',
         ]);
+*/
+        if($request->has('comment')){
+            $comment = $request->input('comment');
+        }else{
+            $comment = '';
+        }
 
         $update = Applicant::where('_id', $object_id)->update([
-            'evaluation.'.Session::get('admin_id').'.'.$document.'.status' => $accepted_action[$request->input('action')],
-            'evaluation.'.Session::get('admin_id').'.'.$document.'.comment' => $accepted_action[$request->input('comment')],
+            'evaluation.'.Session::get('admin_id').'.'.$document.'.status' => $request->input('action'),
+            'evaluation.'.Session::get('admin_id').'.'.$document.'.comment' => $comment,
         ]);
+
+        return RESTResponse::ok();
 
         if($update === 1){
             return RESTResponse::ok();

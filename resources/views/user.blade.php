@@ -27,7 +27,7 @@
                         <button id="btn_image" class="btn btn-sm btn-block btn-primary">รูปถ่ายนักเรียน <i class="fa fa-check-circle" id="check_image" style="display:none;"></i> <i class="fa fa-times" id="error_image" style="display:none;"></i></button>
                     </div>
                     <div class="col-xs-4">
-                        <button id="btn_cid" class="btn btn-sm btn-block btn-primary">บัตรประจำตัวประชาชน <i class="fa fa-check-circle" id="check_cid" style="display:none;"></i> <i class="fa fa-times" id="error_cid" style="display:none;"></i></button>
+                        <button id="btn_citizen_card" class="btn btn-sm btn-block btn-primary">บัตรประจำตัวประชาชน <i class="fa fa-check-circle" id="check_citizen_card" style="display:none;"></i> <i class="fa fa-times" id="error_citizen_card" style="display:none;"></i></button>
                     </div>
                     <div class="col-xs-4">
                         <button id="btn_transcript" class="btn btn-sm btn-block btn-primary">ผลการเรียน <i class="fa fa-check-circle" id="check_transcript" style="display:none;"></i> <i class="fa fa-times" id="error_transcript" style="display:none;"></i></button>
@@ -39,7 +39,7 @@
                         <button id="btn_student_hr" class="btn btn-sm btn-block btn-primary">ทะเบียนบ้านนักเรียน <i class="fa fa-check-circle" id="check_student_hr" style="display:none;"></i> <i class="fa fa-times" id="error_student_hr" style="display:none;"></i></button>
                     </div>
                     <div class="col-xs-4">
-                        <button id="btn_grade_verification" class="btn btn-sm btn-block btn-primary">ใบรับรองผลการเรียน <i class="fa fa-check-circle" id="check_grade_verification" style="display:none;"></i> <i class="fa fa-times" id="error_grade_verification" style="display:none;"></i></button>
+                        <button id="btn_gradecert" class="btn btn-sm btn-block btn-primary">ใบรับรองผลการเรียน <i class="fa fa-check-circle" id="check_gradecert" style="display:none;"></i> <i class="fa fa-times" id="error_gradecert" style="display:none;"></i></button>
                     </div>
                 </div>
                 <div style="height:10px;">&nbsp;</div>
@@ -47,17 +47,17 @@
 
                 <div class="infoContainer">
                     <div class="info" id="info_image">
-                        <p>เลขประจำตัวประชาชน: <b>{{$data->citizen_id}}</b> </p>
-                        <p>วัน/เดือน/ปีเกิด: <b>{{$data->birthdate["day"]}} / {{$data->birthdate["month"]}} / {{$data->birthdate["year"]}}</b> </p>
                     </div>
-                    <div class="info" id="info_cid" style="display:none;">
+                    <div class="info" id="info_citizen_card" style="display:none;">
                         <p>เลขประจำตัวประชาชน: <b>{{$data->citizen_id}}</b> </p>
                         <p>วัน/เดือน/ปีเกิด: <b>{{$data->birthdate["day"]}} / {{$data->birthdate["month"]}} / {{$data->birthdate["year"]}}</b> </p>
                         <p>ที่อยู่ปัจจุบัน: <b>{{$data->address["home"]["home_address"]}} หมู่ {{$data->address["home"]["home_moo"]}} ซอย {{$data->address["home"]["home_soi"]}} ถนน{{$data->address["home"]["home_road"]}} ตำบล{{$data->address["home"]["home_subdistrict"]}} อำเภอ{{$data->address["home"]["home_district"]}} จังหวัด{{$data->address["home"]["home_province"]}} {{$data->address["home"]["home_postcode"]}}</b> </p>
                         <p>ที่อยู่ตามทะเบียนบ้าน: <b>{{$data->address["current"]["current_address"]}} หมู่ {{$data->address["current"]["current_moo"]}} ซอย {{$data->address["current"]["current_soi"]}} ถนน{{$data->address["current"]["current_road"]}} ตำบล{{$data->address["current"]["current_subdistrict"]}} อำเภอ{{$data->address["current"]["current_district"]}} จังหวัด{{$data->address["current"]["current_province"]}} {{$data->address["current"]["current_postcode"]}}</b> </p>
                     </div>
                     <div class="info" id="info_transcript" style="display:none;">
-                        Transcript data goes here
+                        <p>เลขประจำตัวประชาชน: <b>{{$data->citizen_id}}</b> </p>
+                        <p>โรงเรียน: <b>{{$data->school}}</b> จังหวัด: <b>{{$data->school_province}}</b> </p>
+                        <p>เกรดเฉลี่ยสะสม 5 ภาคเรียน: <b>{{$data->gpa}}</b> </p>
                     </div>
                     <div class="info" id="info_student_hr" style="display:none;">
                         <p>เลขประจำตัวประชาชน: <b>{{$data->citizen_id}}</b> </p>
@@ -65,8 +65,12 @@
                         <p>ที่อยู่ปัจจุบัน: <b>{{$data->address["home"]["home_address"]}} หมู่ {{$data->address["home"]["home_moo"]}} ซอย {{$data->address["home"]["home_soi"]}} ถนน{{$data->address["home"]["home_road"]}} ตำบล{{$data->address["home"]["home_subdistrict"]}} อำเภอ{{$data->address["home"]["home_district"]}} จังหวัด{{$data->address["home"]["home_province"]}} {{$data->address["home"]["home_postcode"]}}</b> </p>
                         <p>ที่อยู่ตามทะเบียนบ้าน: <b>{{$data->address["current"]["current_address"]}} หมู่ {{$data->address["current"]["current_moo"]}} ซอย {{$data->address["current"]["current_soi"]}} ถนน{{$data->address["current"]["current_road"]}} ตำบล{{$data->address["current"]["current_subdistrict"]}} อำเภอ{{$data->address["current"]["current_district"]}} จังหวัด{{$data->address["current"]["current_province"]}} {{$data->address["current"]["current_postcode"]}}</b> </p>
                     </div>
-                    <div class="info" id="info_grade_verification" style="display:none;">
-                        Grade verification data goes here
+                    <div class="info" id="info_gradecert" style="display:none;">
+                        <p>โรงเรียน: <b>{{$data->school}}</b> จังหวัด: <b>{{$data->school_province}}</b> </p>
+                        <p>เกรดเฉลี่ยสะสม 5 ภาคเรียน: <b>{{$data->gpa}}</b> </p>
+                        @foreach($data->quota_grade as $subject => $subject_grade)
+                            <p>เกรดเฉลี่ยวิชา {{$subject}}: <b>{{$subject_grade}}</b> </p>
+                        @endforeach
                     </div>
                 </div>
 
@@ -92,7 +96,7 @@
                         <small class="text-muted">รูปถ่าย</small>
                         <img src="{{ App\Http\Controllers\ApplicantController::renderDocument($data['_id'], 'image') }}" class="img-responsive zoomableImage">
                     </div>
-                    <div class="document" id="document_cid" style="display:none;">
+                    <div class="document" id="document_citizen_card" style="display:none;">
                         <small class="text-muted">บัตรประจำตัวประชาชน</small>
                         <img src="{{ App\Http\Controllers\ApplicantController::renderDocument($data['_id'], 'citizen_card') }}" class="img-responsive zoomableImage">
                     </div>
@@ -104,7 +108,7 @@
                         <small class="text-muted">ทะเบียนบ้านนักเรียน</small>
                         <img src="{{ App\Http\Controllers\ApplicantController::renderDocument($data['_id'], 'student_hr') }}" class="img-responsive zoomableImage">
                     </div>
-                    <div class="document" id="document_grade_verification" style="display:none;">
+                    <div class="document" id="document_gradecert" style="display:none;">
                         <small class="text-muted">ใบรับรองผลการเรียน</small>
                         <img src="{{ App\Http\Controllers\ApplicantController::renderDocument($data['_id'], 'gradecert') }}" class="img-responsive zoomableImage">
                     </div>
@@ -171,6 +175,7 @@
 
             $.ajax({
                 url: '/applicants/status/{{ $data['_id'] }}/',
+                type: 'POST',
                 data: {
                     _token: csrfToken,
                     status: "1"
@@ -184,8 +189,7 @@
                     // Tell the user that everything went well
                     console.log("AJAX complete - sent accept all");
 
-                },
-                type: 'POST'
+                }
             });
         });
 
@@ -195,6 +199,7 @@
             console.log("Sending rejection");
             $.ajax({
                 url: '/applicants/status/{{ $data['_id'] }}/',
+                type: 'POST',
                 data: {
                     _token: csrfToken,
                     status: "-1"
@@ -208,8 +213,7 @@
                     // Tell the user that everything went well
                     console.log("AJAX complete - sent reject all");
 
-                },
-                type: 'POST'
+                }
             });
         });
 
@@ -217,9 +221,9 @@
             e.preventDefault();
             showDocument("image");
         });
-        $("#btn_cid").click(function(e){
+        $("#btn_citizen_card").click(function(e){
             e.preventDefault();
-            showDocument("cid");
+            showDocument("citizen_card");
         });
         $("#btn_transcript").click(function(e){
             e.preventDefault();
@@ -229,9 +233,9 @@
             e.preventDefault();
             showDocument("student_hr");
         });
-        $("#btn_grade_verification").click(function(e){
+        $("#btn_gradecert").click(function(e){
             e.preventDefault();
-            showDocument("grade_verification");
+            showDocument("gradecert");
         });
 
         $("#btnAcceptDoc").click(function(e){
@@ -243,7 +247,7 @@
                 $("#check_" + currentDoc).show();
 
                 $.ajax({
-                    url: '/applicants/{{ $data['_id'] }}/' + currentDoc,
+                    url: '/applicants/documents/{{ $data['_id'] }}/' + currentDoc,
                     data: {
                         _token: csrfToken,
                         action: "1"

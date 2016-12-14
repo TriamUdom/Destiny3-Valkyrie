@@ -25,7 +25,7 @@ Route::group(['middleware' => ['admin', 'supervised']], function(){
 
     Route::get('/logout', 'AdminController@logout');
 
-    Route::get('/applicants/{object_id}', 'ApplicantController@displayDocument');
+    Route::get('/applicants/views/{object_id}', 'ApplicantController@displayDocument');
     Route::post('/applicants/status/{object_id}', 'ApplicantController@updateAcceptanceStatus');
-    Route::post('/applicants/{object_id}/{document}', 'ApplicantController@updateDocumentStatus');
+    Route::post('/applicants/documents/{object_id}/{document}', 'ApplicantController@updateDocumentStatus');
 });

@@ -23,7 +23,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <a href="/applicants/{{ $row['_id'] }}"><button class="btn btn-block btn-info">ตรวจสอบ</button></a>
+                    <a href="/applicants/views/{{ $row['_id'] }}"><button class="btn btn-block btn-info">ตรวจสอบ</button></a>
                 </div>
             </div>
         </div>
