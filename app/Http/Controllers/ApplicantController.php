@@ -72,7 +72,9 @@ class ApplicantController extends Controller{
     }
 
     public function showIndexPage(){
-        $db = Applicant::where('ui_notified', 0)->get();
+        $db = Applicant::where('ui_notified', 0)
+                        ->whereNull('evaluation.'.Session::get('admin_id'))
+                        ->get();
         return view('index')->with('data', $db);
     }
 
