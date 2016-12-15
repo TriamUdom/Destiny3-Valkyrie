@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Log;
 use Closure;
 use App\Http\Controllers\AdminController;
 
@@ -19,6 +20,7 @@ class SupervisorLoggedIn
         if(AdminController::supervisorLoggedIn()){
             return $next($request);
         }else{
+            Log::info('supervisor not logged in');
             return redirect('/supervisor_login');
         }
     }

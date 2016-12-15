@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Log;
 use Closure;
 use App\Http\Controllers\AdminController;
 
@@ -18,6 +19,7 @@ class AdminLoggedIn
         if(AdminController::adminLoggedIn()){
             return $next($request);
         }else{
+            Log::info('admin not logged in');
             return redirect('/login');
         }
     }
