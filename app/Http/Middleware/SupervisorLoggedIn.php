@@ -20,7 +20,7 @@ class SupervisorLoggedIn
         if(AdminController::supervisorLoggedIn()){
             return $next($request);
         }else{
-            Log::info('supervisor not logged in');
+            Log::info('Supervisor not logged in');
             return redirect('/supervisor_login');
         }
     }

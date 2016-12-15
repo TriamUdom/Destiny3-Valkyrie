@@ -19,7 +19,7 @@ class AdminLoggedIn
         if(AdminController::adminLoggedIn()){
             return $next($request);
         }else{
-            Log::info('admin not logged in');
+            Log::info('Admin not logged in');
             return redirect('/login');
         }
     }
