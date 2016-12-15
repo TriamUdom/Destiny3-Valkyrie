@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Applicant;
 use Illuminate\Console\Command;
 use App\Http\Controllers\ApplicantController as ApplicantController;
 
@@ -54,6 +55,9 @@ class NotifyUI extends Command
             $returnHttpCode = ApplicantController::notifyUIOnsuccess($id);
             if($returnHttpCode != 200){
                 $this->error($returnHttpCode.' returned for ID : '.$id);
+                continue;
+            }else{
+                Applicant::where('_id', $id)->update(['ui_notified' => 1]);
             }
 
             ApplicantController::saveDataToCore($id);
