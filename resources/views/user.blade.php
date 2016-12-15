@@ -11,8 +11,8 @@
                         <img src="{{ App\Http\Controllers\ApplicantController::renderDocument($data['_id'], 'image') }}" class="img-responsive zoomableImage">
                     </div>
                     <div class="col-xs-8">
-                        <h4 style="margin-bottom:0;"><b>{{$data->title}}{{$data->fname}} {{$data->lname}}</b></h4>
-                        <h6 style="margin-top:0;font-size:1.1em;margin-bottom:0;">{{$data->title_en}} {{$data->fname_en}} {{$data->lname_en}}</h6>
+                        <h4 style="margin-bottom:0;"><b>{{App\UIHelper::formatTitle($data->title)}}{{$data->fname}} {{$data->lname}}</b></h4>
+                        <h6 style="margin-top:0;font-size:1.1em;margin-bottom:0;">{{App\UIHelper::formatTitle($data->title_en, 'eng')}} {{$data->fname_en}} {{$data->lname_en}}</h6>
                         <hr style="margin-top:5px;margin-bottom:15px;">
                         <div class="row">
                             <p><i class="fa fa-phone"></i> {{$data->phone}} {{-- TODO: FORMATTING --}}</p>
