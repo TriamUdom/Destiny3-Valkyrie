@@ -62,6 +62,7 @@ class NotifyUI extends Command
         }
 
         $bar->finish();
+        $this->info("\n");
         $this->info('All data have been sent');
     }
 }
