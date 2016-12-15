@@ -199,8 +199,8 @@ class ApplicantController extends Controller{
         }
     }
 
-    public static function notifyUIOnsuccess($id){
-        $citizen_id = Applicant::where('_id', $id)->value('citizen_id');
+    public static function notifyUIOnsuccess($object_id){
+        $citizen_id = Applicant::where('_id', $object_id)->pluck('citizen_id')[0];
 
         $sendto = Config::get('api.base_path').'/api/v1/applicant/'.$citizen_id.'/status';
 
