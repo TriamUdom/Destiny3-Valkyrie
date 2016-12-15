@@ -21,7 +21,7 @@ class Handler extends ExceptionHandler
         \Illuminate\Database\Eloquent\ModelNotFoundException::class,
         \Illuminate\Session\TokenMismatchException::class,
         \Illuminate\Validation\ValidationException::class,
-        Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class,
+        \Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class,
     ];
 
     /**
@@ -34,11 +34,16 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
-        if($exception instanceof TokenMismatchException){
-            return redirect('/login');
+        if($exception instanceof \Illuminate\Session\TokenMismatchException){
+            $request->session()->flush();
+            $request->session()->regenerate();
+            return redirect('/supervisor_login')->with('error', 'การเชื่อมต่อหมดอายุ กรุณาเข้าสู่ระบบอีกครั้ง');
         }
-        Log::error($exception);
-        parent::report($exception);
+
+        if(parent::shouldReport($exception)){
+            Log::error($exception);
+            parent::report($exception);
+        }
     }
 
     /**
