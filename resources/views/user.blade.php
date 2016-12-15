@@ -260,7 +260,6 @@
 
                         // Tell the user that everything went well
                         console.log("AJAX complete - accepted " + currentDoc);
-                        location.replace("/");
                     },
                     type: 'POST'
                 });
@@ -309,7 +308,6 @@
 
                                     // Tell the user that everything went well
                                     console.log("AJAX complete - rejected " + currentDoc);
-                                    location.replace("/");
                                 },
                                 type: 'POST'
                             });
