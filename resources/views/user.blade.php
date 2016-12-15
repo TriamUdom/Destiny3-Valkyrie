@@ -174,7 +174,7 @@
             console.log("Sending acceptance");
 
             $.ajax({
-                url: '/applicants/status/{{ $data['_id'] }}/',
+                url: '/applicants/status/{{ $data['_id'] }}',
                 type: 'POST',
                 data: {
                     _token: csrfToken,
@@ -198,7 +198,7 @@
             // REJECT the application
             console.log("Sending rejection");
             $.ajax({
-                url: '/applicants/status/{{ $data['_id'] }}/',
+                url: '/applicants/status/{{ $data['_id'] }}',
                 type: 'POST',
                 data: {
                     _token: csrfToken,
@@ -295,7 +295,7 @@
                             rejectedReasons.push(reason);
 
                             $.ajax({
-                                url: '/applicants/{{ $data['_id'] }}/' + currentDoc,
+                                url: '/applicants/documents/{{ $data['_id'] }}/' + currentDoc,
                                 data: {
                                     _token: csrfToken,
                                     action: "-1",
