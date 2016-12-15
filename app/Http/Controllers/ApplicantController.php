@@ -297,7 +297,7 @@ class ApplicantController extends Controller{
                 }
             }
 
-            if($passed >= 9){
+            if($passed >= 15){
                 $passed_id[] = $object_id;
             }
         }
