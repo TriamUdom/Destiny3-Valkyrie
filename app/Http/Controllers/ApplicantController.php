@@ -135,7 +135,7 @@ class ApplicantController extends Controller{
             $all_docs['transcript']['status'] == -1 || $all_docs['student_hr']['status'] == -1 ||
             $all_docs['gradecert']['status'] == -1){
 
-            if($this->notifyUIOnFailure($status, $object_id)){
+            if($this->notifyUIOnFailure($object_id)){
                 return redirect('/')->with('message', 'UI notified');
             }else{
                 return RESTResponse::serverError('Cannot send data to UI');
@@ -145,7 +145,7 @@ class ApplicantController extends Controller{
         return RESTResponse::ok();
     }
 
-    private function notifyUIOnFailure($status, $object_id){
+    private function notifyUIOnFailure($object_id){
         $db = Applicant::where('_id', $object_id)->first();
 
         $base_path = Config::get('api.base_path');
