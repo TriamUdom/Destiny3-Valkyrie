@@ -231,7 +231,7 @@ class ApplicantController extends Controller{
 
     public static function saveDataToCore($id){
         $data = Applicant::where('_id', $id)->first();
-
+        Log::debug($data);
         PassedApplicant::create([
             'citizen_id' => $data['citizen_id'],
             'title' => $data['title'],
