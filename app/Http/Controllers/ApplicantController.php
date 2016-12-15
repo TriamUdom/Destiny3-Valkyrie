@@ -136,7 +136,7 @@ class ApplicantController extends Controller{
             $all_docs['gradecert']['status'] == -1){
 
             if($this->notifyUIOnFailure($object_id)){
-                return redirect('/')->with('message', 'UI notified');
+                return RESTResponse::ok('UI notified');
             }else{
                 return RESTResponse::serverError('Cannot send data to UI');
             }
@@ -164,9 +164,9 @@ class ApplicantController extends Controller{
         $comments = [];
 
         foreach($db['evaluation'] as $admin_id){
-            foreach($admin_id as $document){
+            foreach($admin_id as $doc_name => $document){
                 if($document['status'] == -1 && !empty($document['comment'])){
-                    $comments[] = $document['comment'];
+                    $comments[$doc_name] = $document['comment'];
                 }
             }
         }
@@ -200,8 +200,7 @@ class ApplicantController extends Controller{
     }
 
     public static function notifyUIOnsuccess($object_id){
-        $citizen_id = Applicant::where('_id', $object_id)->pluck('citizen_id')[0];
-
+        $citizen_id = Applicant::where('_id', $object_id)->value('citizen_id');
         $sendto = Config::get('api.base_path').'/api/v1/applicant/'.$citizen_id.'/status';
 
         // Init cURL and set stuff:
@@ -276,7 +275,7 @@ class ApplicantController extends Controller{
 
         $passed_id = [];
 
-        foreach($all as $object_id => $applicant){
+        foreach($all as $applicant){
             if(!isset($applicant['evaluation'])){
                 continue;
             }
@@ -298,7 +297,7 @@ class ApplicantController extends Controller{
             }
 
             if($passed >= 15){
-                $passed_id[] = $object_id;
+                $passed_id[] = $applicant['_id'];
             }
         }
 
