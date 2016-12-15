@@ -48,7 +48,7 @@ class NotifyUI extends Command
 
         $this->info('Passed applicant(s) retrieved');
 
-        $bar = $this->output->createProgressBar(count($users));
+        $bar = $this->output->createProgressBar(count($passed_id));
 
         foreach($passed_id as $id){
             $returnHttpCode = ApplicantController::notifyUIOnsuccess($id);
