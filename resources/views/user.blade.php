@@ -58,6 +58,7 @@
                         <p>เลขประจำตัวประชาชน: <b>{{$data->citizen_id}}</b> </p>
                         <p>โรงเรียน: <b>{{$data->school}}</b> จังหวัด: <b>{{$data->school_province}}</b> </p>
                         <p>เกรดเฉลี่ยสะสม 5 ภาคเรียน: <b>{{$data->gpa}}</b> </p>
+                        <p>แผนการเรียน: <b>{{App\UIHelper::formatPlan($data->plan)}}</b> </p>
                     </div>
                     <div class="info" id="info_student_hr" style="display:none;">
                         <p>เลขประจำตัวประชาชน: <b>{{$data->citizen_id}}</b> </p>
