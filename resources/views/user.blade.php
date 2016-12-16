@@ -69,7 +69,7 @@
                         <p>โรงเรียน: <b>{{$data->school}}</b> จังหวัด: <b>{{$data->school_province}}</b> </p>
                         <p>เกรดเฉลี่ยสะสม 5 ภาคเรียน: <b>{{$data->gpa}}</b> </p>
                         @foreach($data->quota_grade as $subject => $subject_grade)
-                            <p>เกรดเฉลี่ยวิชา {{$subject}}: <b>{{$subject_grade}}</b> </p>
+                            <p>เกรดเฉลี่ยวิชา {{App\UIHelper::formatSubject($subject)}}: <b>{{$subject_grade}}</b> </p>
                         @endforeach
                     </div>
                 </div>

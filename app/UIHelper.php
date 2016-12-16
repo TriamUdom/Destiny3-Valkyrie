@@ -45,4 +45,20 @@ class UIHelper{
             return $title;
         }
     }
+
+    public static function formatSubject($subject){
+        $string = explode('_', $subject);
+
+        $converter = [
+            'science' => 'วิทยาศาสตร์',
+            'math' => 'คณิตศาสตร์',
+            'english' => 'ภาษาอังกฤษ',
+            'thai' => 'ภาษาไทย',
+            'social' => 'สังคม',
+            'basic' => 'พื้นฐาน',
+            'advanced' => 'เพิ่มเติม',
+        ];
+
+        return $converter[$string[0]].' '.$converter[$string[1]];
+    }
 }
