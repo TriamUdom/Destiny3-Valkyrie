@@ -131,6 +131,10 @@ class ApplicantController extends Controller{
             abort(400);
         }
 
+        if(Applicant::where('_id', $object_id)->pluck('ui_notified')[0] == 1){
+            return RESTResponse::ok();
+        }
+
         $all_docs = Applicant::where('_id', $object_id)->pluck('evaluation.'.Session::get('admin_id'))[0];
 
         if($all_docs['image']['status'] == 0 || $all_docs['citizen_card']['status'] == 0 ||
