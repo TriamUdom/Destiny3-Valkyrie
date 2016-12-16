@@ -75,7 +75,7 @@ class ApplicantController extends Controller{
         $passed = self::getPassedApplicantID();
         $db = Applicant::where('ui_notified', 0)
                         ->whereNull('evaluation.'.Session::get('admin_id'))
-                        ->whereNotIn('_id', $passed);
+                        ->whereNotIn('_id', $passed)
                         ->get();
         return view('index')->with('data', $db);
     }
