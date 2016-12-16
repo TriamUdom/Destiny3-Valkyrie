@@ -71,6 +71,7 @@
                         @foreach($data->quota_grade as $subject => $subject_grade)
                             <p>เกรดเฉลี่ยวิชา {{App\UIHelper::formatSubject($subject)}}: <b>{{$subject_grade}}</b> </p>
                         @endforeach
+                        <p>แผนการเรียน: <b>{{App\UIHelper::formatPlan($data->plan)}}</b> </p>
                     </div>
                 </div>
 

@@ -61,4 +61,18 @@ class UIHelper{
 
         return $converter[$string[0]].' '.$converter[$string[1]];
     }
+
+    public static function formatPlan($plan_id){
+        $converter = [
+            1 => "ภาษา-ฝรั่งเศส",
+            2 => "ภาษา-เยอรมัน",
+            3 => "ภาษา-ญี่ปุ่น",
+            4 => "ภาษา-คณิต",
+            5 => "วิทย์-คณิต",
+            7 => "ภาษา-สเปน",
+            8 => "ภาษา-จีน",
+        ];
+
+        return $converter[$plan_id];
+    }
 }
