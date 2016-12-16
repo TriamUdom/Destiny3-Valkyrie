@@ -73,10 +73,17 @@ class ApplicantController extends Controller{
 
     public function showIndexPage(){
         $passed = self::getPassedApplicantID();
-        $db = Applicant::where('ui_notified', 0)
-                        ->whereNull('evaluation.'.Session::get('admin_id'))
-                        ->whereNotIn('_id', $passed)
-                        ->get();
+        if(is_array($passed)){
+            $db = Applicant::where('ui_notified', 0)
+                            ->whereNull('evaluation.'.Session::get('admin_id'))
+                            ->whereNotIn('_id', $passed)
+                            ->get();
+        }else{
+            $db = Applicant::where('ui_notified', 0)
+                            ->whereNull('evaluation.'.Session::get('admin_id'))
+                            ->get();
+        }
+
         return view('index')->with('data', $db);
     }
 
