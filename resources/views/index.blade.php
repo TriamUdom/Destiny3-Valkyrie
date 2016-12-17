@@ -17,8 +17,11 @@
         @foreach($data as $row)
         <div class="well">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     {{ App\UIHelper::formatTitle($row['title']) }} {{ $row['fname'] }} {{ $row['lname'] }}
+                </div>
+                <div class="col-md-6">
+                    {{ $row['school_province'] }}
                 </div>
             </div>
             <div class="row">
