@@ -77,10 +77,12 @@ class ApplicantController extends Controller{
             $db = Applicant::where('ui_notified', 0)
                             ->whereNull('evaluation.'.Session::get('admin_id'))
                             ->whereNotIn('_id', $passed)
+                            ->orderBy('school_province', 'asc')
                             ->get();
         }else{
             $db = Applicant::where('ui_notified', 0)
                             ->whereNull('evaluation.'.Session::get('admin_id'))
+                            ->orderBy('school_province', 'asc')
                             ->get();
         }
 
