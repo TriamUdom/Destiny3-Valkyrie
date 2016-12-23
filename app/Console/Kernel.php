@@ -28,6 +28,9 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('notifyui')
                  ->dailyAt('01:00');
+
+        $schedule->command('reportapplicant sirirat.an@gmail.com')
+                 ->dailyAt('09:00');
     }
 
     /**
