@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\NotifyUI::class,
+        Commands\ReportApplicant::class,
         //Commands\FormatData::class,
     ];
 
