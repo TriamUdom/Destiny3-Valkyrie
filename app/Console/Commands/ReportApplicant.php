@@ -68,6 +68,6 @@ class ReportApplicant extends Command
         Storage::delete([$b_compact, $b_complete, $c_complete]);
 
         $bar->finish();
-        $this->info("\nSend completed");
+        $this->info("\nSend completed!");
     }
 }
