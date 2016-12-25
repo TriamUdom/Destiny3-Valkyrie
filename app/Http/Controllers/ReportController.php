@@ -293,7 +293,6 @@ class ReportController extends Controller
 
     public function generateCCompleteReport(){
         $all = DB::collection('passed_applicants')
-                ->where('ui_notified', 0)
                 ->orderBy('school_province', 'asc')
                 ->orderBy('submitted', 'asc')
                 ->get();
