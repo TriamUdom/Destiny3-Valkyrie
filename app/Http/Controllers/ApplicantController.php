@@ -345,7 +345,7 @@ class ApplicantController extends Controller{
         $result = curl_exec($ch);
         $returnHttpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-        if($returnHttpCode == 404){
+        if($returnHttpCode != 200){
             return '/assets/images/woah.png';
         }
 
