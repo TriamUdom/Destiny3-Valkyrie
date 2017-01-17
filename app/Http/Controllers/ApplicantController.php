@@ -150,7 +150,7 @@ class ApplicantController extends Controller{
             $all_docs['transcript']['status'] == -1 || $all_docs['student_hr']['status'] == -1 ||
             $all_docs['gradecert']['status'] == -1){
 
-            if($this->notifyUIOnFailure($object_id)){
+            if(self::notifyUIOnFailure($object_id)){
                 return RESTResponse::ok('UI notified');
             }else{
                 return RESTResponse::serverError('Cannot send data to UI');
@@ -160,7 +160,7 @@ class ApplicantController extends Controller{
         return RESTResponse::ok();
     }
 
-    private function notifyUIOnFailure($object_id){
+    private static function notifyUIOnFailure($object_id){
         $db = Applicant::where('_id', $object_id)->first();
 
         $base_path = Config::get('api.base_path');
@@ -303,8 +303,10 @@ class ApplicantController extends Controller{
                 }
 
                 foreach($eval_admin as $document){
-                    if($document['status'] == 0 || $document['status'] == -1){
+                    if($document['status'] == 0){
                         break 2;
+                    }else if($document['status'] == -1){
+                        self::notifyUIOnFailure($applicant->_id);
                     }else{
                         $passed++;
                     }
