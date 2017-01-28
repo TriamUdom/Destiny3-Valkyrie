@@ -52,7 +52,7 @@ class NotifyAll extends Command
 
             Mail::send('emails.seating', [], function($message) use ($applicantMail){
                 $message->from('no-reply@apply.triamudom.ac.th', 'ระบบรับสมัครนักเรียนโควตาจังหวัด โรงเรียนเตรียมอุดมศึกษา');
-                $message->to($applicantMail)->subject("ประกาศที่นั่งสอบ สำหรับการสอบโควตาจังหวัด ปีการศึกษา 2560");
+                $message->to($applicantMail)->subject("ประกาศเลขที่นั่งสอบ สำหรับการสอบโควตาจังหวัด ปีการศึกษา 2560");
             });
 
             PassedApplicant::where('_id', $individual['_id'])->update(['seating_notified' => 1]);
